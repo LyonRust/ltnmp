@@ -1,0 +1,74 @@
+#! /bin/bash
+#
+# pureftpd      Start up the pureftpd server daemon
+#
+# chkconfig: 2345 55 25
+# Description: starts and stops the pureftpd ftp server
+#
+### BEGIN INIT INFO
+# Provides:          pureftpd
+# Required-Start:    $all
+# Required-Stop:     $all
+# Default-Start:     2 3 4 5
+# Default-Stop:      0 1 6
+# Description:       starts and stops the pureftpd ftp server
+### END INIT INFO
+
+# Author: Star <star@staritw.com>
+# Version:1.0 (2013.06.15)
+
+# To install:
+#   copy this file to /etc/init.d/pureftpd
+#   shell> chkconfig --add pureftpd (RedHat)
+#   shell> update-rc.d -f pureftpd defaults (debian)
+
+# To uninstall:
+#   shell> chkconfig --del pureftpd (RedHat)
+#   shell> update-rc.d -f pureftpd remove
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin:/usr/local/sbin:/usr/local/bin
+NAME=pureftpd
+DAEMON=/usr/local/pureftpd/sbin/pure-ftpd
+CONFIGFILE=/usr/local/pureftpd/etc/$NAME.conf
+CONFIGFILEPL=/usr/local/pureftpd/sbin/pure-config.pl
+PIDFILE=/var/run/$NAME.pid
+
+set -e
+[ -x "$DAEMON" ] || exit 0
+
+do_start() {
+    echo "Starting $NAME ..."
+    $CONFIGFILEPL $CONFIGFILE --daemonize
+}
+
+do_stop() {
+    echo "Shutting down $NAME ..."
+    kill `cat $PIDFILE`
+}
+
+case "$1" in
+    start)
+        [ ! -f "$PIDFILE" ] && do_start || echo "pureftpd already running"
+	echo -e ".\ndone"
+        ;;
+    stop)
+        [ -f "$PIDFILE" ] && do_stop || echo "pureftpd not running"
+	echo -e ".\ndone"
+        ;;
+    restart)
+        [ -f "$PIDFILE" ] && do_stop || echo "pureftpd not running"
+        do_start
+	echo -e ".\ndone"
+        ;;
+    status)
+        [ -f "$PIDFILE" ] && echo "$NAME is running" || echo "$NAME not running"
+	echo -e ".\ndone"
+        ;;
+    *)
+    N=/etc/init.d/$NAME
+    echo "Usage: $N {start|stop|restart|status}" >&2
+    exit 1
+    ;;
+esac
+
+exit 0
