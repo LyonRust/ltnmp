@@ -6,4 +6,4 @@ LTNMP一键安装包是基于LNMP基础上二次开发修改的一键安装包�
 
 LTNMP一键安装包By：李扬(扫地僧) <php360#qq.com>(把#换成@)
 
-05工作室(http://www.95gzs.com)
+05工作室(http://www.05gzs.com)
