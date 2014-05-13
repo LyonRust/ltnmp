@@ -1,0 +1,59 @@
+#!/bin/bash
+PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
+export PATH
+
+# Check if user is root
+if [ $(id -u) != "0" ]; then
+    printf "Error: You must be root to run this script!\n"
+    exit 1
+fi
+
+printf "=========================================================================\n"
+printf "Pure-FTPd status Manager for LTNMP  ,  Written by php360 \n"
+printf "=========================================================================\n"
+printf "LTNMP is a tool to auto-compile & install Tengine+Nginx+MySQL+PHP on Linux \n"
+printf "This script is a tool to Manage status of Pure-FTPd \n"
+printf "For more information please visit http://www.05gzs.com \n"
+printf "\n"
+printf "Usage: /root/pureftpd {start|stop|restart|status|who}\n"
+printf "=========================================================================\n"
+
+prog="Pure-FTPd"
+PUREPIDFILE="/var/run/pureftpd.pid"
+PURECONFIGPL="/usr/local/pureftpd/sbin/pure-config.pl"
+PURECONFIGFILE="/usr/local/pureftpd/etc/pureftpd.conf"
+
+start() {
+	printf "Starting $prog... \n"
+	$PURECONFIGPL $PURECONFIGFILE --daemonize
+}
+stop() {
+	printf "Stopping $prog... \n"
+	kill `cat $PUREPIDFILE`
+}
+status() {
+if [ -e $PUREPIDFILE ]; then
+	printf "$prog is running.\n"
+else
+	printf "$prog is NOT running.\n"
+fi
+}
+
+case "$1" in
+	start)
+		start
+		;;
+	stop)
+		stop
+		;;
+	restart)
+		stop
+		start
+		;;
+	status)
+		status
+		;;
+	*)
+		printf "Usage: /root/pureftpd {start|stop|restart|status}\n"
+esac
+exit
