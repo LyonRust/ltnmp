@@ -38,7 +38,7 @@ if [ -s ImageMagick-7.0.0-0.tar.gz ]; then
   echo "ImageMagick-7.0.0-0.tar.gz [found]"
   else
   echo "Error: ImageMagick-7.0.0-0.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/ImageMagick-7.0.0-0.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ImageMagick-7.0.0-0.tar.gz
   #wget -c http://ltanmp.googlecode.com/files/ImageMagick-7.0.0-0.tar.gz
   if [ $? -eq 0 ]; then
 	echo "Download ImageMagick-7.0.0-0.tar.gz successfully!"
@@ -53,8 +53,7 @@ if [ -s imagick-3.1.0RC2.tgz ]; then
   echo "imagick-3.1.0RC2.tgz [found]"
   else
   echo "Error: imagick-3.1.0RC2.tgz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/imagick-3.1.0RC2.tgz
-  #wget -c http://ltanmp.googlecode.com/files/imagick-3.1.0RC2.tgz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/imagick-3.1.0RC2.tgz
   if [ $? -eq 0 ]; then
 	echo "Download imagick-3.1.0RC2.tgz successfully!"
   else

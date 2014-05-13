@@ -175,7 +175,7 @@ if [ -s eaccelerator-0.9.5.3.tar.bz2 ]; then
   echo "eaccelerator-0.9.5.3.tar.bz2 [found]"
   else
   echo "eaccelerator-0.9.5.3.tar.bz2 not found!!!download now......"
-wget -c http://www.05gzs.com/ltnmp/eaccelerator-0.9.5.3.tar.bz2
+wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/eaccelerator-0.9.5.3.tar.bz2
 fi
 
 rm -rf eaccelerator-0.9.5.3
@@ -207,7 +207,7 @@ if [ -s eaccelerator-0.9.6.1.tar.bz2 ]; then
   echo "eaccelerator-0.9.6.1.tar.bz2 [found]"
   else
   echo "eaccelerator-0.9.6.1.tar.bz2 not found!!!download now......"
-wget -c http://www.05gzs.com/ltnmp/eaccelerator-0.9.6.1.tar.bz2
+wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/eaccelerator-0.9.6.1.tar.bz2
 fi
 
 rm -f eaccelerator-0.9.6.1
@@ -233,7 +233,7 @@ if [ -s eaccelerator-eaccelerator-42067ac.tar.gz ]; then
   echo "eaccelerator-eaccelerator-42067ac.tar.gz [found]"
   else
   echo "eaccelerator-eaccelerator-42067ac.tar.gz not found!!!download now......"
-wget -c http://www.05gzs.com/ltnmp/eaccelerator-eaccelerator-42067ac.tar.gz
+wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/eaccelerator-eaccelerator-42067ac.tar.gz
 fi
 
 rm -f eaccelerator-eaccelerator-42067ac

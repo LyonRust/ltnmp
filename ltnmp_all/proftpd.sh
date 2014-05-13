@@ -42,9 +42,8 @@ if [ -s proftpd-1.3.4b.tar.gz ]; then
 	echo "proftpd-1.3.4b.tar.gz [found]"
 else
 	echo "Start download files..."
-	wget -c http://www.05gzs.com/ltnmp/proftpd-1.3.4b.tar.gz
+	wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/proftpd-1.3.4b.tar.gz
 fi
-#wget -c http://ltanmp.googlecode.com/files/proftpd-1.3.4b.tar.gz
 tar zxf proftpd-1.3.4b.tar.gz
 cd proftpd-1.3.4b
 ./configure --prefix=/usr/local/proftpd
@@ -124,7 +123,6 @@ else
 	echo "Start download files..."
 	wget -c http://www.05gzs.com/ltnmp/files/init.d.proftpd
 fi
-#wget -c http://ltanmp.googlecode.com/files/init.d.proftpd
 cp init.d.proftpd /etc/init.d/proftpd
 chmod +x /etc/init.d/proftpd
 

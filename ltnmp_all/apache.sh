@@ -53,7 +53,7 @@ if [ -s httpd-2.4.6.tar.gz ]; then
   echo "httpd-2.4.6.tar.gz [found]"
   else
   echo "Error: httpd-2.4.6.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/httpd-2.4.6.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/httpd-2.4.6.tar.gz
   #wget -c http://ltanmp.googlecode.com/files/httpd-2.4.6.tar.gz
 fi
 
@@ -61,7 +61,7 @@ if [ -s mod_rpaf-0.6.tar.gz ]; then
   echo "mod_rpaf-0.6.tar.gz [found]"
   else
   echo "Error: mod_rpaf-0.6.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/mod_rpaf-0.6.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/mod_rpaf-0.6.tar.gz
   #wget -c http://ltanmp.googlecode.com/files/mod_rpaf-0.6.tar.gz
 fi
 
@@ -69,7 +69,7 @@ if [ -s php-5.2.17.tar.gz ]; then
   echo "php-5.2.17.tar.gz [found]"
   else
   echo "Error: php-5.2.17.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/php-5.2.17.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/php-5.2.17.tar.gz
   #wget -c http://ltanmp.googlecode.com/files/php-5.2.17.tar.gz
 fi
 printf "=========================== install Apache ======================\n"
@@ -132,14 +132,12 @@ fi
 tar zxvf php-5.2.17.tar.gz
 cd php-5.2.17/
 wget -c http://www.05gzs.com/ltnmp/php-5.2.17-max-input-vars.patch
-#wget -c http://ltanmp.googlecode.com/files/php-5.2.17-max-input-vars.patch
 patch -p1 < php-5.2.17-max-input-vars.patch
 ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --with-apxs2=/usr/local/apache/bin/apxs --with-mysql=/usr/local/mysql --with-mysqli=/usr/local/mysql/bin/mysql_config --with-iconv-dir --with-freetype-dir --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-discard-path --enable-magic-quotes --enable-safe-mode --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --with-curlwrappers --enable-mbregex --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --without-pear --with-gettext --with-mime-magic
 
 if cat /etc/issue | grep -Eqi '(Debian|Ubuntu)';then
     cd ext/openssl/
 wget -c http://www.05gzs.com/ltnmp/debian_patches_disable_SSLv2_for_openssl_1_0_0.patch
-#wget -c http://ltanmp.googlecode.com/files/debian_patches_disable_SSLv2_for_openssl_1_0_0.patch
     patch -p3 <debian_patches_disable_SSLv2_for_openssl_1_0_0.patch
     cd ../../
 fi
@@ -173,14 +171,12 @@ sed -i 's/max_execution_time = 30/max_execution_time = 300/g' /usr/local/php/etc
 sed -i 's/disable_functions =.*/disable_functions = phpinfo,passthru,exec,system,chroot,scandir,chgrp,chown,shell_exec,popen,pclose,proc_open,proc_close,proc_nice,proc_terminate,leak,proc_get_status,ini_alter,ini_restore,dl,openlog,syslog,readlink,symlink,pcntl_exec,popepassthru,stream_socket_server,putenv,posix_getpwuid,pfsockopen,psockopen,php_u,crack_closedictescap,crack_getlastmessage,fsocket,crack_opendict,eshellcmd/g' /usr/local/php/etc/php.ini
 
 if [ `getconf WORD_BIT` = '32' ] && [ `getconf LONG_BIT` = '64' ] ; then
-        wget -c http://www.05gzs.com/ltnmp/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
-        #wget -c http://ltanmp.googlecode.com/files/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
+        wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
         tar zxvf ZendOptimizer-3.3.9-linux-glibc23-x86_64.tar.gz
 	mkdir -p /usr/local/zend/
 	cp ZendOptimizer-3.3.9-linux-glibc23-x86_64/data/5_2_x_comp/ZendOptimizer.so /usr/local/zend/
 else
-        wget -c http://www.05gzs.com/ltnmp/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
-        #wget -c http://ltanmp.googlecode.com/files/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
+        wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
 	tar zxvf ZendOptimizer-3.3.9-linux-glibc23-i386.tar.gz
 	mkdir -p /usr/local/zend/
 	cp ZendOptimizer-3.3.9-linux-glibc23-i386/data/5_2_x_comp/ZendOptimizer.so /usr/local/zend/
@@ -203,7 +199,6 @@ cp conf/nginx_a.conf /usr/local/nginx/conf/nginx.conf
 
 echo "Download new Apache init.d file......"
 wget -c http://www.05gzs.com/ltnmp/init.d.httpd
-#wget -c http://ltanmp.googlecode.com/files/init.d.httpd
 cp init.d.httpd /etc/init.d/httpd
 chmod +x /etc/init.d/httpd
 

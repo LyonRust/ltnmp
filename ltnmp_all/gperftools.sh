@@ -43,8 +43,7 @@ bit=$(getconf LONG_BIT)
 if [ "$bit" = "64" ]; then
 rm -rf zxvf libunwind-1.1.tar.gz
 rm -rf zxvf libunwind-1.1
-wget http://www.05gzs.com/ltnmp/libunwind-1.1.tar.gz
-#wget http://ltanmp.googlecode.com/files/libunwind-1.1.tar.gz
+wget http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/libunwind-1.1.tar.gz
 tar zxvf libunwind-1.1.tar.gz
 cd libunwind-1.1
 CFLAGS=-fPIC ./configure
