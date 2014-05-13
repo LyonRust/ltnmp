@@ -216,14 +216,14 @@ if [ "$isinstallphp" = "n" ]; then
 	  echo "php-5.3.28.tar.gz [found]"
 	  else
 	  echo "Error: php-5.3.28.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/php-5.3.28.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/php-5.3.28.tar.gz
 	fi
 else
 	if [ -s php-5.4.24.tar.gz ]; then
 	  echo "php-5.4.24.tar.gz [found]"
 	  else
 	  echo "Error: php-5.4.24.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/php-5.4.24.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/php-5.4.24.tar.gz
 	fi
 fi
 
@@ -231,7 +231,7 @@ if [ -s pcre-8.12.tar.gz ]; then
   echo "pcre-8.12.tar.gz [found]"
   else
   echo "Error: pcre-8.12.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/pcre-8.12.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/pcre-8.12.tar.gz
 fi
 
 if [ "$isinstallTCMalloc" = "n" ]; then
@@ -239,14 +239,14 @@ if [ "$isinstallTCMalloc" = "n" ]; then
 	  echo "jemalloc-3.4.0.tar.bz2 [found]"
 	else
 	  echo "Error: jemalloc-3.4.0.tar.bz2 not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/jemalloc-3.4.0.tar.bz2
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/jemalloc-3.4.0.tar.bz2
 	fi
 else
 	if [ -s gperftools-2.1.tar.gz ]; then
 	  echo "gperftools-2.1.tar.gz [found]"
 	  else
 	  echo "Error: gperftools-2.1.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/gperftools-2.1.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/gperftools-2.1.tar.gz
 	fi
 fi
 
@@ -255,14 +255,14 @@ if [ "$isinstallTengine" = "n" ]; then
 	  echo "nginx-1.5.9.tar.gz [found]"
 	  else
 	  echo "Error: nginx-1.5.9.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/nginx-1.5.9.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/nginx-1.5.9.tar.gz
 	fi
 else
 	if [ -s tengine-2.0.0.tar.gz ]; then
 	  echo "tengine-2.0.0.tar.gz [found]"
 	  else
 	  echo "Error: tengine-2.0.0.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/tengine-2.0.0.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/tengine-2.0.0.tar.gz
 	fi
 fi
 
@@ -271,14 +271,14 @@ if [ "$isinstallMariadb" = "n" ]; then
 	  echo "mysql-5.5.35.tar.gz [found]"
 	  else
 	  echo "Error: mysql-5.5.35.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/mysql-5.5.35.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/mysql-5.5.35.tar.gz
 	fi
 else
 	if [ -s mariadb-5.5.33a.tar.gz ]; then
 	  echo "mariadb-5.5.33a.tar.gz [found]"
 	  else
 	  echo "Error: mariadb-5.5.33a.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/mariadb-5.5.33a.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/mariadb-5.5.33a.tar.gz
 	fi
 fi
 
@@ -286,49 +286,49 @@ if [ -s libiconv-1.14.tar.gz ]; then
   echo "libiconv-1.14.tar.gz [found]"
   else
   echo "Error: libiconv-1.14.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/libiconv-1.14.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/libiconv-1.14.tar.gz
 fi
 
 if [ -s libmcrypt-2.5.8.tar.gz ]; then
   echo "libmcrypt-2.5.8.tar.gz [found]"
   else
   echo "Error: libmcrypt-2.5.8.tar.gz not found!!!download now......"
-  wget -c  http://www.05gzs.com/ltnmp/libmcrypt-2.5.8.tar.gz
+  wget -c  http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/libmcrypt-2.5.8.tar.gz
 fi
 
 if [ -s mhash-0.9.9.9.tar.gz ]; then
   echo "mhash-0.9.9.9.tar.gz [found]"
   else
   echo "Error: mhash-0.9.9.9.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/mhash-0.9.9.9.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/mhash-0.9.9.9.tar.gz
 fi
 
 if [ -s mcrypt-2.6.8.tar.gz ]; then
   echo "mcrypt-2.6.8.tar.gz [found]"
   else
   echo "Error: mcrypt-2.6.8.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/mcrypt-2.6.8.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/mcrypt-2.6.8.tar.gz
 fi
 
 if [ -s phpMyAdmin-4.1.7-all-languages.tar.gz ]; then
   echo "phpMyAdmin-4.1.7-all-languages.tar.gz [found]"
   else
   echo "Error: phpMyAdmin-4.1.7-all-languages.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/phpMyAdmin-4.1.7-all-languages.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/phpMyAdmin-4.1.7-all-languages.tar.gz
 fi
 
 if [ -s p.tar.gz ]; then
   echo "p.tar.gz [found]"
   else
   echo "Error: p.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/p.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/p.tar.gz
 fi
 
 if [ -s autoconf-2.13.tar.gz ]; then
   echo "autoconf-2.13.tar.gz [found]"
   else
   echo "Error: autoconf-2.13.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/autoconf-2.13.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/autoconf-2.13.tar.gz
 fi
 echo "============================check files=================================="
 }
@@ -446,9 +446,8 @@ if [ -s libunwind-1.1.tar.gz ]; then
   echo "libunwind-1.1.tar.gz [found]"
 else
   echo "Error: libunwind-1.1.tar.gz not found!!!download now......"
-  wget -c http://www.05gzs.com/ltnmp/libunwind-1.1.tar.gz
+  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/libunwind-1.1.tar.gz
 fi
-#wget -c http://www.05gzs.com/ltnmp/libunwind-1.1.tar.gz
 tar zxvf libunwind-1.1.tar.gz
 cd libunwind-1.1
 CFLAGS=-fPIC ./configure
@@ -663,9 +662,8 @@ if [ `getconf WORD_BIT` = '32' ] && [ `getconf LONG_BIT` = '64' ] ; then
 	  echo "ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz [found]"
 	  else
 	  echo "Error: ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz
 	fi
-	#wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz
 	tar zxvf ZendGuardLoader-php-5.3-linux-glibc23-x86_64.tar.gz
 	mkdir -p /usr/local/zend/
 	cp ZendGuardLoader-php-5.3-linux-glibc23-x86_64/php-5.3.x/ZendGuardLoader.so /usr/local/zend/
@@ -674,9 +672,8 @@ else
 	  echo "ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz [found]"
 	  else
 	  echo "Error: ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz
 	fi
-	#wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz
 	tar zxvf ZendGuardLoader-php-5.3-linux-glibc23-i386.tar.gz
 	mkdir -p /usr/local/zend/
 	cp ZendGuardLoader-php-5.3-linux-glibc23-i386/php-5.3.x/ZendGuardLoader.so /usr/local/zend/
@@ -767,9 +764,8 @@ if [ `getconf WORD_BIT` = '32' ] && [ `getconf LONG_BIT` = '64' ] ; then
 	  echo "ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz [found]"
 	else
 	  echo "Error: ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz
 	fi
-		#wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz
 		tar zxvf ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64.tar.gz
 		mkdir -p /usr/local/zend/
 		cp ZendGuardLoader-70429-PHP-5.4-linux-glibc23-x86_64/php-5.4.x/ZendGuardLoader.so /usr/local/zend/
@@ -778,9 +774,8 @@ else
 	  echo "ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz [found]"
 	else
 	  echo "Error: ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz not found!!!download now......"
-	  wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz
+	  wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz
 	fi
-		#wget -c http://www.05gzs.com/ltnmp/ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz
 		tar zxvf ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386.tar.gz
 		mkdir -p /usr/local/zend/
 		cp ZendGuardLoader-70429-PHP-5.4-linux-glibc23-i386/php-5.4.x/ZendGuardLoader.so /usr/local/zend/
@@ -973,9 +968,8 @@ if [ -s init.d.nginx ]; then
     echo "init.d.nginx [found]"
 else
     echo "Error: init.d.nginx not found!!!download now......"
-    wget -c http://www.05gzs.com/ltnmp/init.d.nginx
+    wget -c http://git.oschina.net/php360/ltnmp/raw/master/ltnmp_all/init.d.nginx
 fi
-#wget -c http://www.05gzs.com/ltnmp/init.d.nginx
 cp init.d.nginx /etc/init.d/nginx
 chmod +x /etc/init.d/nginx
 
