@@ -5,4 +5,4 @@ LTNMP一键安装包是一个用Linux Shell编写的可以为CentOS/RadHat、Deb
 
 LTNMP一键安装包是基于LNMP基础上二次开发修改的一键安装包，增加了淘宝服务器：Tengine和MySQL替代者：MariaDB的增加。
 
-LTNMP一键安装包By：李扬(扫地僧) <php360@qq.com>  05工作室(http://www.05gzs.com)
+LTNMP一键安装包By：李扬(技安) <php360@qq.com>  05工作室(http://www.05gzs.com)
