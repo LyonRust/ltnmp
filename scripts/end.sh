@@ -4,8 +4,8 @@
 end_system()
 {
     # 安装结束还原系统某些组件
-    replace_autoconf
-    replace_curl
+    #replace_autoconf
+    #replace_curl
 
     # 添加防火墙规则
     add_iptables_rule
@@ -18,13 +18,13 @@ end_system()
 after_install_php()
 {
 
-    echo "复制opcache控制面板到web目录下..."
+    echo "Copy opcache Control Cpanl..."
     cp ${current_dir}/lib/conf/ocp.php /home/www/default/
 
-    echo "安装探针..."
-    cp ${current_dir}/lib/conf/ocp.php /home/www/default/
+    echo "Copy p.php..."
+    cp ${current_dir}/lib/conf/p.php /home/www/default/
 
-    echo "复制默认站点首页文件..."
+    echo "Copy default files..."
     cp ${current_dir}/lib/conf/index.html /home/www/default/index.html
     cp ${current_dir}/lib/conf/ltnmp.gif /home/www/default/ltnmp.gif
 
@@ -39,9 +39,9 @@ add_iptables_rule()
         /sbin/iptables -I INPUT 3 -p tcp --dport 80 -j ACCEPT
         /sbin/iptables -I INPUT 4 -p tcp -s 127.0.0.1 --dport 3306 -j ACCEPT
         /sbin/iptables -I INPUT 5 -p tcp --dport 3306 -j DROP
-        if [ "$PM" = "yum" ]; then
+        if [ "${PM}" = "yum" ]; then
             service iptables save
-        elif [ "$PM" = "apt" ]; then
+        elif [ "${PM}" = "apt" ]; then
             iptables-save > /etc/iptables.rules
             cat >/etc/network/if-post-down.d/iptables<<EOF
 #!/bin/bash
@@ -59,13 +59,15 @@ EOF
 
 ltnmp_startup()
 {
-    echo "添加启动服务并启动ltnmp..."
+    echo "Change web root Access"
+    chown -R www:www /home/www/default
+    echo "Add and Start ltnmp..."
     cp ${current_dir}/lib/conf/ltnmp /bin/ltnmp
     chmod +x /bin/ltnmp
-    echo "启动Tengine..."
+    echo "Start Tengine..."
     /etc/init.d/nginx start
-    echo "启动mariadb..."
+    echo "Start mariadb..."
     /etc/init.d/mariadb start
-    echo "启动php..."
+    echo "Start php..."
     /etc/init.d/php-fpm start
 }

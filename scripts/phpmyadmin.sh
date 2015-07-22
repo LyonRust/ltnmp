@@ -2,13 +2,13 @@
 
 install_phpmyadmin()
 {
-    echo_yellow "--------------------------------------------"
+    echo "--------------------------------------------"
     echo ""
-    echo_yellow "     安装PhpMyAdmin-4.4.12"
+    echo "     安装PhpMyAdmin-4.4.12"
     echo ""
-    echo_yellow "     By:安迪(Andy) http://www.moqifei.com"
+    echo "     By:安迪(Andy) http://www.moqifei.com"
     echo ""
-    echo_yellow "--------------------------------------------"
+    echo "--------------------------------------------"
 
     cd ${current_dir}/src
     tar -zxvf phpMyAdmin-4.4.12-all-languages.tar.gz

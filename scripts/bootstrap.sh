@@ -15,33 +15,34 @@ get_linux_distro()
     if grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
         DISTRO='CentOS'
         PM='yum'
-        SCRIPT='CentOS'
+        ANDY='CentOS'
     elif grep -Eqi "Red Hat Enterprise Linux Server" /etc/issue || grep -Eq "Red Hat Enterprise Linux Server" /etc/*-release; then
         DISTRO='RHEL'
         PM='yum'
-        SCRIPT='CentOS'
+        ANDY='CentOS'
     elif grep -Eqi "Aliyun" /etc/issue || grep -Eq "Aliyun" /etc/*-release; then
         DISTRO='Aliyun'
-        SCRIPT='CentOS'
+        ANDY='CentOS'
         PM='yum'
     elif grep -Eqi "Fedora" /etc/issue || grep -Eq "Fedora" /etc/*-release; then
         DISTRO='Fedora'
         PM='yum'
-        SCRIPT='CentOS'
+        ANDY='CentOS'
     elif grep -Eqi "Debian" /etc/issue || grep -Eq "Debian" /etc/*-release; then
         DISTRO='Debian'
         PM='apt'
-        SCRIPT='Ubuntu'
+        ANDY='Ubuntu'
     elif grep -Eqi "Ubuntu" /etc/issue || grep -Eq "Ubuntu" /etc/*-release; then
         DISTRO='Ubuntu'
         PM='apt'
-        SCRIPT='Ubuntu'
+        ANDY='Ubuntu'
     elif grep -Eqi "Raspbian" /etc/issue || grep -Eq "Raspbian" /etc/*-release; then
         DISTRO='Raspbian'
         PM='apt'
-        SCRIPT='Ubuntu'
+        ANDY='Ubuntu'
     else
         DISTRO='unknow'
+        ANDY='unknow'
     fi
 }
 
@@ -59,61 +60,62 @@ get_os_bit()
 dispaly_selection()
 {
     mysql_root_pwd="root"
-    echo_yellow "第一步:设置Mariadb/MySQL的数据库密码(默认密码: root)"
-    read -p "请输入密码(回车使用默认密码): " mysql_root_pwd
+    echo "Set database password"
+    read -p "Please enter(Default:root): " mysql_root_pwd
     if [ "${mysql_root_pwd}" = "" ]; then
         mysql_root_pwd="root"
     fi
-    echo "Mariadb/MySQL的root密码是: ${mysql_root_pwd}"
+    echo "The root database password is: ${mysql_root_pwd}"
 
-    #do you want to enable or disable the InnoDB Storage Engine?
+    #开启/关闭InnoDB存储引擎
     echo "==========================="
 
     install_innodb="y"
-    echo_yellow "第二步:启用/禁用InnoDB存储引擎(默认状态:开启)"
-    read -p "请输入y或者n(回车表示开启): " install_innodb
+    echo "Enable/Disable InnoDB Storage Engine"
+    read -p "Enter y/n(Default:y):" install_innodb
 
     case "${install_innodb}" in
     [yY][eE][sS]|[yY])
-        echo "开启InnoDB存储引擎"
+        echo "enable InnoDB Storage Engine"
     ;;
     [nN][oO]|[nN])
-        echo "禁用InnoDB存储引擎"
+        echo "disable InnoDB Storage Engine"
     ;;
     *)
-        echo "开启InnoDB存储引擎"
+        echo "enable InnoDB Storage Engine"
         install_innodb="y"
     esac
 
     # 自定义数据库存储位置
     echo "==========================="
     custorm_db_data_dir="n"
-    echo_yellow "第三步:是否自定义数据库文件存储路径(默认路径:数据库默认路径)"
-    read -p "请输入自定义路径(回车使用默认路径): " custorm_db_data_dir
+    echo "Custom database file path(Default:Database default path)"
+    read -p "Please enter a custom path: " custorm_db_data_dir
     if [ "${custorm_db_data_dir}" = "" ] ; then
         custorm_db_data_dir="n"
-        echo "使用数据库默认路径"
+        echo "Database default path"
     else
         mkdir -p $custorm_db_data_dir
-        echo "使用自定义路径:${custorm_db_data_dir}"
+        echo "Custom database file path:${custorm_db_data_dir}"
     fi
 
     # 选择Tengine/Nginx
     echo "==========================="
     install_tengine="y"
-    echo_yellow "第四步:选择Tengine-2.1.0/Nginx-1.9.3(默认:Tengine)"
-    read -p "请输入y或者n(回车使用Tengine):" install_tengine
-    case "$install_tengine" in
+    echo "Install Tengine-2.1.0,Please input y or press Enter"
+    echo "Install Nginx-1.9.3,Please input n"
+    read -p "Enter y/n(Default:y):" install_tengine
+    case "${install_tengine}" in
     y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
-        echo "安装Tengine-2.1.0"
+        echo "Install Tengine-2.1.0"
         install_tengine="y"
     ;;
     n|N|No|NO|no|nO)
-        echo "安装Nginx-1.9.3"
+        echo "Install Nginx-1.9.3"
         install_tengine="n"
     ;;
     *)
-        echo "安装Tengine-2.1.0"
+        echo "Install Tengine-2.1.0"
         install_tengine="y"
     esac
 }
@@ -121,7 +123,6 @@ dispaly_selection()
 # 添加www用户和用户组，用于web服务和php
 add_user()
 {
-
     # 数据库用户(组)
     groupadd mysql
     useradd -s /sbin/nologin -g mysql mysql
@@ -147,20 +148,20 @@ install_autoconf()
     make && make install
 
     # replace system autoconf
-    replace_autoconf="n"
-    if [ -s /usr/bin/autoconf ] ; then
-        mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp
-        replace_autoconf="y"
-    fi
-    ln -s /usr/local/autoconf-2.13/bin/autoconf /usr/bin/autoconf
+    #replace_autoconf="n"
+    #if [ -s /usr/bin/autoconf ] ; then
+    #    mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp
+    #    replace_autoconf="y"
+    #fi
+    #ln -s /usr/local/autoconf-2.13/bin/autoconf /usr/bin/autoconf
 
-    ldconfig
+    #ldconfig
     cd ${current_dir}
 }
 
 replace_autoconf()
 {
-    if [ $replace_autoconf = "y" ] ; then
+    if [ "${replace_autoconf}" = "y" ] ; then
         mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp.bak
         mv /usr/bin/autoconf.ltnmp /usr/bin/autoconf
     fi
@@ -177,20 +178,20 @@ install_curl()
     make && make install
 
     # replace system autoconf
-    replace_curl="n"
-    if [ -s /usr/bin/curl ] ; then
-        mv /usr/bin/curl /usr/bin/curl.ltnmp
-        replace_curl="y"
-    fi
-    ln -s /usr/local/curl-7.42.1/bin/curl /usr/bin/curl
+    #replace_curl="n"
+    #if [ -s /usr/bin/curl ] ; then
+    #    mv /usr/bin/curl /usr/bin/curl.ltnmp
+    #    replace_curl="y"
+    #fi
+    #ln -s /usr/local/curl-7.42.1/bin/curl /usr/bin/curl
 
-    ldconfig
+    #ldconfig
     cd ${current_dir}
 }
 
 replace_curl()
 {
-    if [ $replace_curl = "y" ] ; then
+    if [ "${replace_curl}" = "y" ] ; then
         mv /usr/bin/curl /usr/bin/curl.ltnmp.bak
         mv /usr/bin/curl.ltnmp /usr/bin/curl
     fi

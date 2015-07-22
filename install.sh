@@ -22,10 +22,10 @@ ltnmp_version='2.0'
 . scripts/bootstrap.sh
 
 ## 检测系统参数
-run 2>&1 | tee /root/ltnmp-install.log
+run
 
 if [ "${DISTRO}" = "unknow" ]; then
-    Echo_Red "无法获取该操作系统的发行版本，或者不支持该系统发行版本"
+    echo "Unable to get the release version of the operating system, or the system release version is not supported"
     exit 1
 fi
 
@@ -33,21 +33,22 @@ clear
 
 echo "-------------------------------------------------------------------------"
 echo ""
-echo_yellow "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
+echo "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
 echo ""
-echo_yellow "     一键自动编译(Tengine/nginx)+php+(Mariadb/Mysql)"
+echo "     Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
 echo ""
-echo_yellow "     By:安迪(Andy) http://www.moqifei.com"
+echo "     By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
 
 
 ## 加载各个发行版，数据库，PHP，web服务器等脚本
-. scripts/${SCRIPT}.sh
+. scripts/${ANDY}.sh
 . scripts/mariadb.sh
 . scripts/tengine.sh
 . scripts/nginx.sh
 . scripts/php.sh
+. scripts/ionCube.sh
 . scripts/phpmyadmin.sh
 . scripts/end.sh
 

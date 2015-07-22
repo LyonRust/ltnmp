@@ -2,28 +2,31 @@
 
 install()
 {
-    dispaly_selection 2>&1 | tee -a /root/ltnmp-install.log
+    dispaly_selection
 
     # 系统编译组件检测、安装
-    check_system 2>&1 | tee -a /root/ltnmp-install.log
+    check_system
 
     # 安装系统组件/依赖
-    install_system_dependence 2>&1 | tee -a /root/ltnmp-install.log
+    install_system_dependence
 
     # 添加用户(组)
-    add_user 2>&1 | tee -a /root/ltnmp-install.log
+    add_user
 
     # 安装mariadb10.0.20
-    install_mariadb10 2>&1 | tee -a /root/ltnmp-install.log
+    install_mariadb10
 
     # 安装php-5.6.11
-    install_php5611 2>&1 | tee -a /root/ltnmp-install.log
+    install_php5611
+
+    # 安装phpmyadmin
+    install_phpmyadmin
 
     # 安装tengine-2.1.0
-    install_tengine210 2>&1 | tee -a /root/ltnmp-install.log
+    install_tengine210
 
     # 系统组件还原
-    end_system 2>&1 | tee -a /root/ltnmp-install.log
+    end_system
 }
 
 # 系统编译组件检测、安装
@@ -66,9 +69,9 @@ check_system()
     cp /etc/yum.conf /etc/yum.conf.ltnmp
     sed -i 's:exclude=.*:exclude=:g' /etc/yum.conf
 
-    #for packages in make cmake gcc gcc-c++ gcc-g77 flex bison file libtool libtool-libs autoconf kernel-devel patch wget libjpeg libjpeg-devel libpng libpng-devel libpng10 libpng10-devel gd gd-devel libxml2 libxml2-devel zlib zlib-devel glib2 glib2-devel unzip tar bzip2 bzip2-devel libevent libevent-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel readline-devel vim-minimal gettext gettext-devel gmp-devel pspell-devel libcap diffutils net-tools libc-client-devel psmisc libXpm-devel git-core c-ares-devel;
+    #for packages in make cmake automake gcc gcc-c++ gcc-g77 flex bison file libtool libtool-libs autoconf kernel-devel patch wget libjpeg libjpeg-devel libpng libpng-devel libpng10 libpng10-devel gd gd-devel libxml2 libxml2-devel zlib zlib-devel glib2 glib2-devel unzip tar bzip2 bzip2-devel libevent libevent-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel readline-devel re2c vim vim-minimal gettext gettext-devel gmp-devel pspell-devel libcap diffutils net-tools libc-client-devel psmisc libXpm-devel git-core c-ares-devel;
     #do yum -y install $packages; done
-    yum -y install make cmake gcc gcc-c++ gcc-g77 flex bison file libtool libtool-libs autoconf kernel-devel patch wget libjpeg libjpeg-devel libpng libpng-devel libpng10 libpng10-devel gd gd-devel libxml2 libxml2-devel zlib zlib-devel glib2 glib2-devel unzip tar bzip2 bzip2-devel libevent libevent-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel readline-devel vim-minimal gettext gettext-devel gmp-devel pspell-devel libcap diffutils net-tools libc-client-devel psmisc libXpm-devel git-core c-ares-devel
+    yum -y install make cmake automake gcc gcc-c++ gcc-g77 flex bison file libtool libtool-libs autoconf kernel-devel patch wget libjpeg libjpeg-devel libpng libpng-devel libpng10 libpng10-devel gd gd-devel libxml2 libxml2-devel zlib zlib-devel glib2 glib2-devel unzip tar bzip2 bzip2-devel libevent libevent-devel ncurses ncurses-devel curl curl-devel e2fsprogs e2fsprogs-devel krb5 krb5-devel libidn libidn-devel openssl openssl-devel readline-devel re2c vim vim-minimal gettext gettext-devel gmp-devel pspell-devel libcap diffutils net-tools libc-client-devel psmisc libXpm-devel git-core c-ares-devel
 
     mv -f /etc/yum.conf.ltnmp /etc/yum.conf
 }

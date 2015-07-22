@@ -66,11 +66,11 @@ ltnmp_status()
     /etc/init.d/mysql status
 }
 
-Function_Vhost()
+function_vhost()
 {
     case "$1" in
     [aA][dD][dD])
-        Add_VHost
+        add_vhost
     ;;
     [lL][iI][sS][tT])
         List_VHost
@@ -88,7 +88,7 @@ Function_Vhost()
 esac
 }
 
-Function_Mysql()
+function_mysql()
 {
     case "$1" in
     [aA][dD][dD])
@@ -111,7 +111,7 @@ Function_Mysql()
 esac
 }
 
-Function_Ftp()
+function_ftp()
 {
     case "$1" in
     [aA][dD][dD])
@@ -134,43 +134,43 @@ Function_Ftp()
 esac
 }
 
-Add_VHost()
+add_vhost()
 {
     domain=""
-    read -p "Please enter domain(example: www.moqifei.com): " domain
+    read -p "请输入域名(例如: www.moqifei.com): " domain
     if [ "${domain}" = "" ]; then
-        echo "No enter,domain name can't be empty."
+        echo "域名不能为空."
         exit 1
     fi
     if [ ! -f "/usr/local/nginx/conf/vhost/${domain}.conf" ]; then
         echo "======================================"
-        echo " Your domain: ${domain}"
+        echo " 域名是: ${domain}"
         echo "======================================"
     else
         echo "==============================="
-        echo "${domain} is exist!"
+        echo "${domain} 已经存在!"
         echo "==============================="
     fi
 
-    read -p "Do you want to add more domain name? (y/n) " add_more_domainame
+    read -p "添加更多的域名? (y/n) " add_more_domainame
 
     if [ "${add_more_domainame}" == "y" ]; then
 
-        read -p "Enter domain name(example: lnmp.org *.lnmp.org): " moredomain
-        echo "domain list: ${moredomain}"
+        read -p "请输入域名,空格间隔(例如: moqifei.com *.moqifei.com): " moredomain
+        echo "域名列表: ${moredomain}"
         moredomainame=" ${moredomain}"
     fi
 
     vhostdir="/home/www/${domain}"
-    echo "Please enter the directory for the domain: $domain"
-    read -p "(Default directory: /home/www/${domain}): " vhostdir
+    echo "输入网站存放文件夹(绝对路径): $domain"
+    read -p "(默认为: /home/www/${domain}): " vhostdir
     if [ "${vhostdir}" = "" ]; then
         vhostdir="/home/www/${domain}"
     fi
-    echo "Virtual Host Directory: ${vhostdir}"
+    echo "路径为: ${vhostdir}"
 
     echo "==========================="
-    echo "Allow Rewrite rule? (y/n)"
+    echo "是否添加重写规则? (y/n)"
     echo "==========================="
     read allow_rewrite
 
@@ -178,32 +178,32 @@ Add_VHost()
         rewrite="none"
     else
         rewrite="other"
-        echo "Please enter the rewrite of programme: "
+        echo "请输入规则名称: "
         echo "agile,wordpress,discuz,typecho,sablog,dabr rewrite was exist."
-        read -p "(Default rewrite: other):" rewrite
+        read -p "(默认规则: other):" rewrite
         if [ "${rewrite}" = "" ]; then
             rewrite="other"
         fi
     fi
     echo "==========================="
-    echo "You choose rewrite=${rewrite}"
+    echo "规则=${rewrite}"
     echo "==========================="
 
     echo "==========================="
-    echo "Allow access_log? (y/n)"
+    echo "是否需要记录日志? (y/n)"
     echo "==========================="
     read access_log
 
     if [ "${access_log}" == "n" ]; then
         al="access_log off;"
     else
-        read -p "Enter access log name(Default access log file:${domain}.log): " al_name
+        read -p "输入日志名称(默认日志为:${domain}.log): " al_name
         if [ "${al_name}" = "" ]; then
             al_name="${domain}"
         fi
         al="access_log  /home/www/wwwlogs/${al_name}.log  access;"
 
-    echo "You access log filename: ${al_name}.log"
+    echo "日志为: ${al_name}.log"
     fi
 
     echo "======================================================"
@@ -212,7 +212,7 @@ Add_VHost()
     read create_database
 
     if [ "${create_database}" == "y" ]; then
-        Verify_MySQL_Password
+        verify_mysql_password
         Add_Database_Menu
     fi
 
@@ -225,14 +225,14 @@ Add_VHost()
 
         if [ "${create_ftp}" == "y" ]; then
             if [ "${create_database}" != "y" ]; then
-                Verify_MySQL_Password
+                verify_mysql_password
             fi
             Add_Ftp_Menu
         fi
     fi
 
     echo ""
-    echo "Press any key to start create virtul host..."
+    echo "按任意键开始..."
     OLDCONFIG=`stty -g`
     stty -icanon -echo min 1 time 0
     dd count=1 2>/dev/null
@@ -372,27 +372,27 @@ Del_VHost()
     fi
 }
 
-Check_DB()
+check_db()
 {
     if [[ -s /usr/local/mariadb/bin/mysql && -s /usr/local/mariadb/bin/mysqld_safe && -s /etc/my.cnf ]]; then
-        MySQL_Bin="/usr/local/mariadb/bin/mysql"
+        mysql_bin="/usr/local/mariadb/bin/mysql"
     else
-        MySQL_Bin="/usr/local/mysql/bin/mysql"
+        mysql_bin="/usr/local/mysql/bin/mysql"
     fi
 }
 
-Verify_MySQL_Password()
+verify_mysql_password()
 {
     read -p "verify your current MySQL root password: " mysql_root_password
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "quit"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "quit"
     if [ $? -eq 0 ]; then
         echo "MySQL root password correct."
     else
         echo "MySQL root password incorrect!Please check!"
-        Verify_MySQL_Password
+        verify_mysql_password
     fi
     if [ "${mysql_root_password}" = "" ]; then
-        Verify_MySQL_Password
+        verify_mysql_password
     fi
 }
 
@@ -415,23 +415,23 @@ Add_Database_Menu()
 
 Add_Database()
 {
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'127.0.0.1' IDENTIFIED BY '${mysql_password}'"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'localhost' IDENTIFIED BY '${mysql_password}'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'127.0.0.1' IDENTIFIED BY '${mysql_password}'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'localhost' IDENTIFIED BY '${mysql_password}'"
     [ $? -eq 0 ] && echo "User ${database_name} create Sucessfully." || echo "User ${database_name} already exists!"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "GRANT USAGE ON *.* TO '${database_name}'@'127.0.0.1' IDENTIFIED BY '${mysql_password}'"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "GRANT USAGE ON *.* TO '${database_name}'@'localhost' IDENTIFIED BY '${mysql_password}'"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "CREATE DATABASE ${database_name}"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "GRANT USAGE ON *.* TO '${database_name}'@'127.0.0.1' IDENTIFIED BY '${mysql_password}'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "GRANT USAGE ON *.* TO '${database_name}'@'localhost' IDENTIFIED BY '${mysql_password}'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "CREATE DATABASE ${database_name}"
     [ $? -eq 0 ] && echo "Database: ${database_name} create Sucessfully." || echo "Database: ${database_name} already exists!"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "GRANT ALL PRIVILEGES ON ${database_name}.* TO '${database_name}'@'127.0.0.1';"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "GRANT ALL PRIVILEGES ON ${database_name}.* TO '${database_name}'@'localhost';"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "GRANT ALL PRIVILEGES ON ${database_name}.* TO '${database_name}'@'127.0.0.1';"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "GRANT ALL PRIVILEGES ON ${database_name}.* TO '${database_name}'@'localhost';"
     [ $? -eq 0 ] && echo "GRANT ALL PRIVILEGES ON ${database_name} Sucessfully." || echo "GRANT ALL PRIVILEGES ON ${database_name} failed!"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "FLUSH PRIVILEGES"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "FLUSH PRIVILEGES"
     [ $? -eq 0 ] && echo "FLUSH PRIVILEGES Sucessfully." || echo "FLUSH PRIVILEGES failed!"
 }
 
 List_Database()
 {
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "SHOW DATABASES;"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "SHOW DATABASES;"
     [ $? -eq 0 ] && echo "List all databases Sucessfully." || echo "List all databases failed!"
 }
 
@@ -446,11 +446,11 @@ Del_Database()
     echo "Your will delete database and MySQL user with same name: ${database_name}"
     echo "Sleep 10s,Press ctrl+c to cancel..."
     sleep 10
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "DROP USER '${database_name}'@'127.0.0.1'"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "DROP USER '${database_name}'@'localhost'"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "DROP DATABASE ${database_name}"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "DROP USER '${database_name}'@'127.0.0.1'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "DROP USER '${database_name}'@'localhost'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "DROP DATABASE ${database_name}"
     [ $? -eq 0 ] && echo "Database: ${database_name} deleted Sucessfully." || echo "Database: ${database_name} not exist!"
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "FLUSH PRIVILEGES"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "FLUSH PRIVILEGES"
     [ $? -eq 0 ] && echo "FLUSH PRIVILEGES Sucessfully." || echo "FLUSH PRIVILEGES failed!"
 }
 
@@ -492,13 +492,13 @@ Add_Ftp()
 {
     www_uid=`id -u www`
     www_gid=`id -g www`
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "INSERT INTO ftpusers.users VALUES ('${ftp_account_name}', MD5('${ftp_account_password}'), ${www_uid}, ${www_gid}, '${vhostdir}', 0, 0, 0, 0, '*', '${domain}', '1', 0, 0)"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "INSERT INTO ftpusers.users VALUES ('${ftp_account_name}', MD5('${ftp_account_password}'), ${www_uid}, ${www_gid}, '${vhostdir}', 0, 0, 0, 0, '*', '${domain}', '1', 0, 0)"
     [ $? -eq 0 ] && echo "Created FTP User: ${ftp_account_name} Sucessfully." || echo "FTP User: ${ftp_account_name} already exists!"
 }
 
 List_Ftp()
 {
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "SELECT User,Dir FROM ftpusers.users users ORDER BY User ASC"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "SELECT User,Dir FROM ftpusers.users users ORDER BY User ASC"
     [ $? -eq 0 ] && echo "List FTP User Sucessfully." || echo "Read database failed."
 }
 
@@ -509,11 +509,11 @@ Del_Ftp()
     echo "Your will delete ftp user ${ftp_account_name}"
     echo "Sleep 10s,Press ctrl+c to cancel..."
     sleep 10
-    ${MySQL_Bin} -uroot -p${mysql_root_password} -e "DELETE FROM ftpusers.users WHERE User='${ftp_account_name}'"
+    ${mysql_bin} -uroot -p${mysql_root_password} -e "DELETE FROM ftpusers.users WHERE User='${ftp_account_name}'"
     [ $? -eq 0 ] && echo "FTP User: ${ftp_account_name} deleted Sucessfully." || echo "FTP User: ${ftp_account_name} not exists!"
 }
 
-Check_DB
+check_db
 
 case "${arg1}" in
     start)
@@ -554,16 +554,16 @@ case "${arg1}" in
         /etc/init.d/httpd ${arg2}
         ;;
     vhost)
-        Function_Vhost ${arg2}
+        function_vhost ${arg2}
         ;;
     database)
-        Verify_MySQL_Password
-        Function_Mysql ${arg2}
+        verify_mysql_password
+        function_mysql ${arg2}
         ;;
     ftp)
         Check_Pureftpd
-        Verify_MySQL_Password
-        Function_Ftp ${arg2}
+        verify_mysql_password
+        function_ftp ${arg2}
         ;;
     *)
         echo "Usage: ltnmp {start|stop|reload|restart|kill|status}"

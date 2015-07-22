@@ -1,14 +1,14 @@
 #!/bin/bash
 
-install_5611()
+install_php5611()
 {
-    echo_yellow "--------------------------------------------"
+    echo "--------------------------------------------"
     echo ""
-    echo_yellow "     安装php-5.6.11"
+    echo "     Install php-5.6.11"
     echo ""
-    echo_yellow "     By:安迪(Andy) http://www.moqifei.com"
+    echo "     By:Andy http://www.moqifei.com"
     echo ""
-    echo_yellow "--------------------------------------------"
+    echo "--------------------------------------------"
 
     cd ${current_dir}/src
     tar -zxvf php-5.6.11.tar.gz
@@ -24,11 +24,11 @@ install_5611()
     ln -sf /usr/local/php/bin/pecl /usr/bin/pecl
     ln -sf /usr/local/php/sbin/php-fpm /usr/bin/php-fpm
 
-    echo "复制php.ini..."
+    echo "Copy php.ini..."
     mkdir -p /usr/local/php/etc
     cp php.ini-production /usr/local/php/etc/php.ini
 
-    echo "修改php.ini..."
+    echo "Modify php.ini..."
     sed -i 's/post_max_size = 8M/post_max_size = 50M/g' /usr/local/php/etc/php.ini
     sed -i 's/upload_max_filesize = 2M/upload_max_filesize = 50M/g' /usr/local/php/etc/php.ini
     sed -i 's/;date.timezone =/date.timezone = PRC/g' /usr/local/php/etc/php.ini
@@ -43,18 +43,16 @@ install_5611()
     pecl config-set php_ini /usr/local/php/etc/php.ini
 
     cd ${current_dir}/src
-    echo "安装ZendGuardLoader for PHP 5.6.11..."
-    if [ "${Is_64bit}" = "y" ] ; then
+    echo "Install ZendGuardLoader for PHP 5.6.11..."
+    if [ "${is_64bit}" = "y" ] ; then
         tar -zxvf zend-loader-php5.6-linux-x86_64.tar.gz
-        cp ./zend-loader-php5.6-linux-x86_64/ZendGuardLoader.so /usr/local/
-        mv /usr/local/zend-loader-php5.6-linux-x86_64/ /usr/local/zend
+        mv ./zend-loader-php5.6-linux-x86_64 /usr/local/zend
     else
         tar -zxvf zend-loader-php5.6-linux-i386.tar.gz
-        cp ./zend-loader-php5.6-linux-i386/ZendGuardLoader.so /usr/local/
-        mv /usr/local/zend-loader-php5.6-linux-i386/ /usr/local/zend
+        mv ./zend-loader-php5.6-linux-i386 /usr/local/zend
     fi
 
-    echo "写入ZendGuardLoader到php.ini中..."
+    echo "Write ZendGuardLoader into php.ini..."
     cat >>/usr/local/php/etc/php.ini<<EOF
 
 ;eaccelerator
@@ -70,7 +68,7 @@ zend_loader.license_path=
 
 ;opcache
 [Zend Opcache]
-zend_extension=opcache.so
+zend_extension=/usr/local/zend/opcache.so
 opcache.memory_consumption=128
 opcache.interned_strings_buffer=8
 opcache.max_accelerated_files=4000
@@ -83,7 +81,7 @@ opcache.enable_cli=1
 ;xcache end
 EOF
 
-    echo "新建php-fpm配置文件..."
+    echo "Create php-fpm config file..."
     cat >/usr/local/php/etc/php-fpm.conf<<EOF
 [global]
 pid = /usr/local/php/var/run/php-fpm.pid
@@ -109,10 +107,12 @@ request_slowlog_timeout = 0
 slowlog = var/log/slow.log
 EOF
 
-    echo "复制php-fpm到init.d启动文件夹中..."
+    echo "Copy php-fpm into init.d dir..."
     cp ${current_dir}/src/php-5.6.11/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
     chmod +x /etc/init.d/php-fpm
 
     after_install_php
+
+    install_ioncube_php56
 
 }
