@@ -12,6 +12,9 @@ end_system()
 
     # 开启服务
     ltnmp_startup
+
+    # 增加开机启动
+    bootstart
 }
 
 # 安装完PHP后需要做的一些事情
@@ -71,3 +74,14 @@ ltnmp_startup()
     echo "Start php..."
     /etc/init.d/php-fpm start
 }
+
+bootstart()
+{
+    # 添加Tengine
+    chkconfig nginx on
+    # 添加php
+    chkconfig php-fpm on
+    # 添加mariadb
+    chkconfig mariadb on
+}
+
