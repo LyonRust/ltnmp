@@ -4,9 +4,9 @@ install_phpmyadmin()
 {
     echo "--------------------------------------------"
     echo ""
-    echo "     安装PhpMyAdmin-4.4.12"
+    echo "     Install PhpMyAdmin-4.4.12"
     echo ""
-    echo "     By:安迪(Andy) http://www.moqifei.com"
+    echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
