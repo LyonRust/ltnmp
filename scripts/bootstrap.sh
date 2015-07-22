@@ -338,6 +338,45 @@ install_system_dependence()
     install_pcre
 }
 
+restart_nginx()
+{
+    if [ -s /etc/init.d/nginx ] ; then
+        nginx_status=`/etc/init.d/nginx status`
+        if echo "${nginx_status}" | grep -q 'running' ; then
+            /etc/init.d/nginx restart
+        else
+            /etc/init.d/nginx start
+        fi
+    fi
+
+}
+
+restart_php()
+{
+    if [ -s /etc/init.d/php-fpm ] ; then
+        php_status=`/etc/init.d/php-fpm status`
+        if echo "${php_status}" | grep -q 'running' ; then
+            /etc/init.d/php-fpm restart
+        else
+            /etc/init.d/php-fpm start
+        fi
+    fi
+
+}
+
+restart_mariadb()
+{
+    if [ -s /etc/init.d/mariadb ] ; then
+        mariadb_status=`/etc/init.d/mariadb status`
+        if echo "${mariadb_status}" | grep -q 'running' ; then
+            /etc/init.d/mariadb restart
+        else
+            /etc/init.d/mariadb start
+        fi
+    fi
+
+}
+
 echo_yellow()
 {
   echo $(color_text "$1" "33")
