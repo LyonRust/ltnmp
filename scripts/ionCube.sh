@@ -32,5 +32,6 @@ r /tmp/ionCube.ini
     rm -f /tmp/ionCube.ini
 
     /etc/init.d/php-fpm restart
+    /etc/init.d/php-fpm stop
 
 }
