@@ -4,49 +4,47 @@ export PATH
 
 # 检测是否是root用户
 if [ $(id -u) != "0" ]; then
-    echo "错误:必须是root才可以运行此脚本!"
+    echo "Error: You must be root to run this script, please use root to install ltnmp"
     exit 1
 fi
 
+clear
+
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "     ltnmp控制台"
+echo "     ltnmp Controll Panel"
 echo ""
-echo "     By:安迪(Andy) http://www.moqifei.com"
+echo "     By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
 
-PHPFPMPIDFILE=/usr/local/php/var/run/php-fpm.pid
+PHPFPMPIDFILE="/usr/local/php/var/run/php-fpm.pid"
 
 arg1=$1
 arg2=$2
 
-ltnmp_start()
-{
+ltnmp_start() {
     echo "Starting LTNMP..."
     /etc/init.d/nginx start
     /etc/init.d/mysql start
     /etc/init.d/php-fpm start
 }
 
-ltnmp_stop()
-{
+ltnmp_stop() {
     echo "Stoping LTNMP..."
     /etc/init.d/nginx stop
     /etc/init.d/mysql stop
     /etc/init.d/php-fpm stop
 }
 
-ltnmp_reload()
-{
+ltnmp_reload() {
     echo "Reload LTNMP..."
     /etc/init.d/nginx reload
     /etc/init.d/mysql reload
     /etc/init.d/php-fpm reload
 }
 
-ltnmp_kill()
-{
+ltnmp_kill() {
     echo "Kill nginx,php-fpm,mysql process..."
     killall nginx
     killall mysqld
@@ -55,8 +53,7 @@ ltnmp_kill()
     echo "done."
 }
 
-ltnmp_status()
-{
+ltnmp_status() {
     /etc/init.d/nginx status
     if [ -f $PHPFPMPIDFILE ]; then
         echo "php-fpm is runing!"
@@ -66,17 +63,16 @@ ltnmp_status()
     /etc/init.d/mysql status
 }
 
-function_vhost()
-{
+function_vhost() {
     case "$1" in
     [aA][dD][dD])
-        add_vhost
+        vhost_add
     ;;
     [lL][iI][sS][tT])
-        List_VHost
+        vhost_list
     ;;
     [dD][eE][lL])
-        Del_VHost
+        vhost_del
     ;;
     [eE][xX][iI][tT])
         exit 1
@@ -88,8 +84,7 @@ function_vhost()
 esac
 }
 
-function_mysql()
-{
+function_mysql() {
     case "$1" in
     [aA][dD][dD])
         Add_Database_Menu
@@ -111,8 +106,7 @@ function_mysql()
 esac
 }
 
-function_ftp()
-{
+function_ftp() {
     case "$1" in
     [aA][dD][dD])
         Add_Ftp_Menu
@@ -134,43 +128,42 @@ function_ftp()
 esac
 }
 
-add_vhost()
-{
+vhost_add() {
     domain=""
-    read -p "请输入域名(例如: www.moqifei.com): " domain
+    read -p "Please input domain(example: www.moqifei.com): " domain
     if [ "${domain}" = "" ]; then
-        echo "域名不能为空."
+        echo "The domain can't be empty."
         exit 1
     fi
     if [ ! -f "/usr/local/nginx/conf/vhost/${domain}.conf" ]; then
         echo "======================================"
-        echo " 域名是: ${domain}"
+        echo " Your domain is: ${domain}"
         echo "======================================"
     else
         echo "==============================="
-        echo "${domain} 已经存在!"
+        echo "${domain} is exist!"
         echo "==============================="
     fi
 
-    read -p "添加更多的域名? (y/n) " add_more_domainame
+    read -p "add more domain? (y/n) " add_more_domainame
 
     if [ "${add_more_domainame}" == "y" ]; then
 
-        read -p "请输入域名,空格间隔(例如: moqifei.com *.moqifei.com): " moredomain
-        echo "域名列表: ${moredomain}"
+        read -p "Enter domain name(example: moqifei.com  *.moqifei.com): " moredomain
+        echo "domain list: ${moredomain}"
         moredomainame=" ${moredomain}"
     fi
 
     vhostdir="/home/www/${domain}"
-    echo "输入网站存放文件夹(绝对路径): $domain"
-    read -p "(默认为: /home/www/${domain}): " vhostdir
+    echo "Please enter the directory for the domain: $domain"
+    read -p "(default: /home/www/${domain}): " vhostdir
     if [ "${vhostdir}" = "" ]; then
         vhostdir="/home/www/${domain}"
     fi
-    echo "路径为: ${vhostdir}"
+    echo "Virtual Host Directory: ${vhostdir}"
 
     echo "==========================="
-    echo "是否添加重写规则? (y/n)"
+    echo "Allow Rewrite rule? (y/n)"
     echo "==========================="
     read allow_rewrite
 
@@ -178,61 +171,61 @@ add_vhost()
         rewrite="none"
     else
         rewrite="other"
-        echo "请输入规则名称: "
+        echo "Please enter the rewrite of programme: "
         echo "agile,wordpress,discuz,typecho,sablog,dabr rewrite was exist."
-        read -p "(默认规则: other):" rewrite
+        read -p "(default: other):" rewrite
         if [ "${rewrite}" = "" ]; then
             rewrite="other"
         fi
     fi
     echo "==========================="
-    echo "规则=${rewrite}"
+    echo "rewrite=${rewrite}"
     echo "==========================="
 
     echo "==========================="
-    echo "是否需要记录日志? (y/n)"
+    echo "Allow access_log? (y/n)"
     echo "==========================="
     read access_log
 
     if [ "${access_log}" == "n" ]; then
         al="access_log off;"
     else
-        read -p "输入日志名称(默认日志为:${domain}.log): " al_name
+        read -p "Enter access log name(default:${domain}.log): " al_name
         if [ "${al_name}" = "" ]; then
             al_name="${domain}"
         fi
         al="access_log  /home/www/wwwlogs/${al_name}.log  access;"
 
-    echo "日志为: ${al_name}.log"
+    echo "You access log filename: ${al_name}.log"
     fi
 
-    echo "======================================================"
-    echo "Create database and MySQL user with same name (y/n)"
-    echo "======================================================"
-    read create_database
+    ## 数据库
+    # echo "======================================================"
+    # echo "Create database and MySQL user with same name (y/n)"
+    # echo "======================================================"
+    # read create_database
 
-    if [ "${create_database}" == "y" ]; then
-        verify_mysql_password
-        Add_Database_Menu
-    fi
+    # if [ "${create_database}" == "y" ]; then
+    #     verify_mysql_password
+    #     Add_Database_Menu
+    # fi
 
+    ## ftp账号
+    # if [ -f /usr/local/pureftpd/sbin/pure-config.pl ]; then
+    #     echo "======================================================"
+    #     echo "Create ftp account (y/n)"
+    #     echo "======================================================"
+    #     read create_ftp
 
-    if [ -f /usr/local/pureftpd/sbin/pure-config.pl ]; then
-        echo "======================================================"
-        echo "Create ftp account (y/n)"
-        echo "======================================================"
-        read create_ftp
+    #     if [ "${create_ftp}" == "y" ]; then
+    #         if [ "${create_database}" != "y" ]; then
+    #             verify_mysql_password
+    #         fi
+    #         Add_Ftp_Menu
+    #     fi
+    # fi
 
-        if [ "${create_ftp}" == "y" ]; then
-            if [ "${create_database}" != "y" ]; then
-                verify_mysql_password
-            fi
-            Add_Ftp_Menu
-        fi
-    fi
-
-    echo ""
-    echo "按任意键开始..."
+    echo -e "\nPress any key to start create virtul host..."
     OLDCONFIG=`stty -g`
     stty -icanon -echo min 1 time 0
     dd count=1 2>/dev/null
@@ -257,45 +250,46 @@ add_vhost()
 
     cat >/usr/local/nginx/conf/vhost/${domain}.conf<<EOF
 server
+{
+    listen 80;
+    #listen [::]:80;
+    server_name ${domain} ${moredomainame};
+    index index.html index.htm index.php default.html default.htm default.php;
+    root  ${vhostdir};
+
+    include ${rewrite}.conf;
+    #error_page   404   /404.html;
+
+    location ~ [^/]\.php(/|$)
     {
-        listen 80;
-        #listen [::]:80;
-        server_name ${domain}${moredomainame};
-        index index.html index.htm index.php default.html default.htm default.php;
-        root  ${vhostdir};
-
-        include ${rewrite}.conf;
-        #error_page   404   /404.html;
-        location ~ [^/]\.php(/|$)
-        {
-            # comment try_files \$uri =404; to enable pathinfo
-            try_files \$uri =404;
-            fastcgi_pass  unix:/tmp/php-cgi.sock;
-            fastcgi_index index.php;
-            include fastcgi.conf;
-            #include pathinfo.conf;
-        }
-
-        location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
-        {
-            expires      30d;
-        }
-
-        location ~ .*\.(js|css)?$
-        {
-            expires      12h;
-        }
-
-        ${al}
+        try_files \$uri =404;
+        fastcgi_index index.php;
+        fastcgi_pass  unix:/tmp/php-cgi.sock;
+        include       fastcgi_params;
     }
+
+    location ~ .*\.(gif|jpg|jpeg|png|bmp|swf)$
+    {
+        expires      30d;
+    }
+
+    location ~ .*\.(js|css)?$
+    {
+        expires      12h;
+    }
+
+    ${al}
+
+}
 EOF
 
     cat >${vhostdir}/.user.ini<<EOF
 open_basedir=${vhostdir}:/tmp/:/proc/
 EOF
-#chmod 644 ${vhostdir}/.user.ini
-#chattr +i ${vhostdir}/.user.ini
+    chmod 644 ${vhostdir}/.user.ini
+    chattr +i ${vhostdir}/.user.ini
 
+    echo "Restart php"
     /etc/init.d/php-fpm restart
 
     echo "Test Nginx configure file......"
@@ -304,13 +298,15 @@ EOF
     echo "Restart Nginx......"
     /usr/local/nginx/sbin/nginx -s reload
 
-    if [ "${create_database}" == "y" ]; then
-        Add_Database
-    fi
+    ## 添加数据库账号
+    # if [ "${create_database}" == "y" ]; then
+    #     Add_Database
+    # fi
 
-    if [ "${create_ftp}" == "y" ]; then
-        Add_Ftp
-    fi
+    ## 添加FTP账号
+    # if [ "${create_ftp}" == "y" ]; then
+    #     Add_Ftp
+    # fi
 
 
     echo "================================================"
@@ -323,33 +319,35 @@ EOF
     else
         echo "Enable log: yes"
     fi
-    if [ "${create_database}" = "y" ]; then
-        echo "Database username: ${database_name}"
-        echo "Database userpassword: ${mysql_password}"
-        echo "Database Name: ${database_name}"
-    else
-        echo "Create database: no"
-    fi
-    if [ "${create_ftp}" = "y" ]; then
-        echo "FTP account name: ${ftp_account_name}"
-        echo "FTP account password: ${ftp_account_password}"
-    else
-        echo "Create ftp account: no"
-    fi
+
+    ## 添加数据库账号
+    # if [ "${create_database}" = "y" ]; then
+    #     echo "Database username: ${database_name}"
+    #     echo "Database userpassword: ${mysql_password}"
+    #     echo "Database Name: ${database_name}"
+    # else
+    #     echo "Create database: no"
+    # fi
+
+    ## 添加FTP账号
+    # if [ "${create_ftp}" = "y" ]; then
+    #     echo "FTP account name: ${ftp_account_name}"
+    #     echo "FTP account password: ${ftp_account_password}"
+    # else
+    #     echo "Create ftp account: no"
+    # fi
     echo "================================================"
 }
 
-List_VHost()
-{
+vhost_list() {
     echo "Nginx Virtualhost list:"
     ls /usr/local/nginx/conf/vhost/ | grep ".conf$" | sed 's/.conf//g'
 }
 
-Del_VHost()
-{
+vhost_del() {
     echo "======================================="
     echo "Current Virtualhost:"
-    List_VHost
+    vhost_list
     echo "======================================="
     domain=""
     read -p "Please enter domain you want to delete: " domain
@@ -372,8 +370,7 @@ Del_VHost()
     fi
 }
 
-check_db()
-{
+check_db() {
     if [[ -s /usr/local/mariadb/bin/mysql && -s /usr/local/mariadb/bin/mysqld_safe && -s /etc/my.cnf ]]; then
         mysql_bin="/usr/local/mariadb/bin/mysql"
     else
@@ -381,8 +378,7 @@ check_db()
     fi
 }
 
-verify_mysql_password()
-{
+verify_mysql_password() {
     read -p "verify your current MySQL root password: " mysql_root_password
     ${mysql_bin} -uroot -p${mysql_root_password} -e "quit"
     if [ $? -eq 0 ]; then
@@ -396,8 +392,7 @@ verify_mysql_password()
     fi
 }
 
-Enter_Database_Name()
-{
+Enter_Database_Name() {
     read -p "Enter database name: " database_name
     if [ "${database_name}" = "" ]; then
         echo "Database Name can't be empty!"
@@ -405,16 +400,14 @@ Enter_Database_Name()
     fi
 }
 
-Add_Database_Menu()
-{
+Add_Database_Menu() {
     Enter_Database_Name
     echo "Your will create a database and MySQL user with same name: ${database_name}"
     read -p "Please enter password for mysql user ${database_name}: " mysql_password
     echo "Your password: ${mysql_password} "
 }
 
-Add_Database()
-{
+Add_Database() {
     ${mysql_bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'127.0.0.1' IDENTIFIED BY '${mysql_password}'"
     ${mysql_bin} -uroot -p${mysql_root_password} -e "CREATE USER '${database_name}'@'localhost' IDENTIFIED BY '${mysql_password}'"
     [ $? -eq 0 ] && echo "User ${database_name} create Sucessfully." || echo "User ${database_name} already exists!"
@@ -429,14 +422,12 @@ Add_Database()
     [ $? -eq 0 ] && echo "FLUSH PRIVILEGES Sucessfully." || echo "FLUSH PRIVILEGES failed!"
 }
 
-List_Database()
-{
+List_Database() {
     ${mysql_bin} -uroot -p${mysql_root_password} -e "SHOW DATABASES;"
     [ $? -eq 0 ] && echo "List all databases Sucessfully." || echo "List all databases failed!"
 }
 
-Del_Database()
-{
+Del_Database() {
     List_Database
     Enter_Database_Name
     if [[ "${database_name}" = "information_schema" || "${database_name}" = "mysql" || "${database_name}" = "performance_schema" ]]; then
@@ -454,8 +445,7 @@ Del_Database()
     [ $? -eq 0 ] && echo "FLUSH PRIVILEGES Sucessfully." || echo "FLUSH PRIVILEGES failed!"
 }
 
-Enter_Ftp_Name()
-{
+Enter_Ftp_Name() {
     read -p "Enter ftp account name: " ftp_account_name
     if [ "${ftp_account_name}" = "" ]; then
         echo "FTP account name can't be empty!"
@@ -463,8 +453,7 @@ Enter_Ftp_Name()
     fi
 }
 
-Add_Ftp_Menu()
-{
+Add_Ftp_Menu() {
     Enter_Ftp_Name
     read -p "Enter password for ftp account ${ftp_account_name}: " ftp_account_password
     if [ "${ftp_account_password}" = "" ]; then
@@ -480,30 +469,26 @@ Add_Ftp_Menu()
     fi
 }
 
-Check_Pureftpd()
-{
+Check_Pureftpd() {
     if [ ! -f /usr/local/pureftpd/sbin/pure-config.pl ]; then
         echo "Pureftpd was not installed!"
         exit 1
     fi
 }
 
-Add_Ftp()
-{
+Add_Ftp() {
     www_uid=`id -u www`
     www_gid=`id -g www`
     ${mysql_bin} -uroot -p${mysql_root_password} -e "INSERT INTO ftpusers.users VALUES ('${ftp_account_name}', MD5('${ftp_account_password}'), ${www_uid}, ${www_gid}, '${vhostdir}', 0, 0, 0, 0, '*', '${domain}', '1', 0, 0)"
     [ $? -eq 0 ] && echo "Created FTP User: ${ftp_account_name} Sucessfully." || echo "FTP User: ${ftp_account_name} already exists!"
 }
 
-List_Ftp()
-{
+List_Ftp() {
     ${mysql_bin} -uroot -p${mysql_root_password} -e "SELECT User,Dir FROM ftpusers.users users ORDER BY User ASC"
     [ $? -eq 0 ] && echo "List FTP User Sucessfully." || echo "Read database failed."
 }
 
-Del_Ftp()
-{
+Del_Ftp() {
     List_Ftp
     Enter_Ftp_Name
     echo "Your will delete ftp user ${ftp_account_name}"
@@ -513,7 +498,7 @@ Del_Ftp()
     [ $? -eq 0 ] && echo "FTP User: ${ftp_account_name} deleted Sucessfully." || echo "FTP User: ${ftp_account_name} not exists!"
 }
 
-check_db
+# check_db
 
 case "${arg1}" in
     start)
@@ -538,38 +523,39 @@ case "${arg1}" in
     nginx)
         /etc/init.d/nginx ${arg2}
         ;;
-    mysql)
-        /etc/init.d/mysql ${arg2}
-        ;;
+    # mysql)
+    #     /etc/init.d/mysql ${arg2}
+    #     ;;
     mariadb)
         /etc/init.d/mariadb ${arg2}
         ;;
-    php-fpm)
+    php)
         /etc/init.d/php-fpm ${arg2}
         ;;
-    pureftpd)
-        /etc/init.d/pureftpd ${arg2}
-        ;;
-    httpd)
-        /etc/init.d/httpd ${arg2}
-        ;;
+    # pureftpd)
+    #     /etc/init.d/pureftpd ${arg2}
+    #     ;;
+    # httpd)
+    #     /etc/init.d/httpd ${arg2}
+    #     ;;
     vhost)
         function_vhost ${arg2}
         ;;
-    database)
-        verify_mysql_password
-        function_mysql ${arg2}
-        ;;
-    ftp)
-        Check_Pureftpd
-        verify_mysql_password
-        function_ftp ${arg2}
-        ;;
+    # database)
+    #     verify_mysql_password
+    #     function_mysql ${arg2}
+    #     ;;
+    # ftp)
+    #     Check_Pureftpd
+    #     verify_mysql_password
+    #     function_ftp ${arg2}
+    #     ;;
     *)
         echo "Usage: ltnmp {start|stop|reload|restart|kill|status}"
-        echo "Usage: ltnmp {nginx|mysql|mariadb|php-fpm|pureftpd} {start|stop|reload|restart|kill|status}"
+        # echo "Usage: ltnmp {nginx|mysql|mariadb|php-fpm|pureftpd} {start|stop|reload|restart|kill|status}"
+        echo "Usage: ltnmp {nginx|mariadb|php} {start|stop|reload|restart|kill|status}"
         echo "Usage: ltnmp vhost {add|list|del}"
-        echo "Usage: ltnmp database {add|list|del}"
-        echo "Usage: ltnmp ftp {add|list|del}"
+        # echo "Usage: ltnmp database {add|list|del}"
+        # echo "Usage: ltnmp ftp {add|list|del}"
 esac
 exit
