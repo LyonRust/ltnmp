@@ -1,7 +1,6 @@
 #!/bin/bash
 
-install_phpmyadmin()
-{
+install_phpmyadmin() {
     echo "--------------------------------------------"
     echo ""
     echo "     Install PhpMyAdmin-4.4.12"

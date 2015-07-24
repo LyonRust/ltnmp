@@ -1,8 +1,7 @@
 #!/bin/bash
 
 # 安装结束需要的操作
-end_system()
-{
+end_system() {
     # 安装结束还原系统某些组件
     #replace_autoconf
     #replace_curl
@@ -15,11 +14,13 @@ end_system()
 
     # 增加开机启动
     bootstart
+
+    # 增加虚拟主机控制脚本
+    ltnmp_vhost
 }
 
 # 安装完PHP后需要做的一些事情
-after_install_php()
-{
+after_install_php() {
 
     echo "Copy opcache Control Cpanl..."
     cp ${current_dir}/lib/conf/ocp.php /home/www/default/
@@ -34,8 +35,7 @@ after_install_php()
 }
 
 # 添加防火墙规则
-add_iptables_rule()
-{
+add_iptables_rule() {
     if [ -s /sbin/iptables ]; then
         /sbin/iptables -I INPUT 1 -i lo -j ACCEPT
         /sbin/iptables -I INPUT 2 -m state --state ESTABLISHED,RELATED -j ACCEPT
@@ -60,8 +60,7 @@ EOF
     fi
 }
 
-ltnmp_startup()
-{
+ltnmp_startup() {
     echo "Change web root Access"
     chown -R www:www /home/www/default
     echo "Add and Start ltnmp..."
@@ -75,13 +74,18 @@ ltnmp_startup()
     /etc/init.d/php-fpm start
 }
 
-bootstart()
-{
+bootstart() {
     # 添加Tengine
     chkconfig nginx on
     # 添加php
     chkconfig php-fpm on
     # 添加mariadb
     chkconfig mariadb on
+}
+
+ltnmp_vhost() {
+    echo "Copy ltnmp..."
+    cp ${current_dir}/lib/conf/ltnmp /root/
+    chmod u+x /root/ltnmp
 }
 

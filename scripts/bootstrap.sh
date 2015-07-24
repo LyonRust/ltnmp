@@ -1,17 +1,15 @@
 #!/bin/bash
 
-run()
-{
-    # 检测Linux发行版
+run() {
+    ## 检测Linux发行版
     get_linux_distro
 
-    # 检测系统32/64位
+    ## 检测系统32/64位
     get_os_bit
 }
 
-# 获取Linux发行版，支持(Centos,Red Hat,Ubuntu,Aliyun,Fedora,Debian,Raspbian)
-get_linux_distro()
-{
+## 获取Linux发行版，支持(Centos,Red Hat,Ubuntu,Aliyun,Fedora,Debian,Raspbian)
+get_linux_distro() {
     if grep -Eqi "CentOS" /etc/issue || grep -Eq "CentOS" /etc/*-release; then
         DISTRO='CentOS'
         PM='yum'
@@ -46,9 +44,8 @@ get_linux_distro()
     fi
 }
 
-# 检测系统32/64位
-get_os_bit()
-{
+## 检测系统32/64位
+get_os_bit() {
     if [[ `getconf WORD_BIT` = '32' && `getconf LONG_BIT` = '64' ]] ; then
         is_64bit='y'
     else
@@ -56,9 +53,8 @@ get_os_bit()
     fi
 }
 
-# 初始化工作
-dispaly_selection()
-{
+## 初始化工作
+dispaly_selection() {
     mysql_root_pwd="root"
     echo "Set database password"
     read -p "Please enter(Default:root): " mysql_root_pwd
@@ -67,12 +63,12 @@ dispaly_selection()
     fi
     echo "The root database password is: ${mysql_root_pwd}"
 
-    #开启/关闭InnoDB存储引擎
+    ## 开启/关闭InnoDB存储引擎
     echo "==========================="
 
     install_innodb="y"
     echo "Enable/Disable InnoDB Storage Engine"
-    read -p "Enter y/n(Default:y):" install_innodb
+    read -p "Enter y/n(Default:y): " install_innodb
 
     case "${install_innodb}" in
     [yY][eE][sS]|[yY])
@@ -86,7 +82,7 @@ dispaly_selection()
         install_innodb="y"
     esac
 
-    # 自定义数据库存储位置
+    ## 自定义数据库存储位置
     echo "==========================="
     custorm_db_data_dir="n"
     echo "Custom database file path(Default:Database default path)"
@@ -99,12 +95,12 @@ dispaly_selection()
         echo "Custom database file path:${custorm_db_data_dir}"
     fi
 
-    # 选择Tengine/Nginx
+    ## 选择Tengine/Nginx
     echo "==========================="
     install_tengine="y"
     echo "Install Tengine-2.1.0,Please input y or press Enter"
     echo "Install Nginx-1.9.3,Please input n"
-    read -p "Enter y/n(Default:y):" install_tengine
+    read -p "Enter y/n(Default:y): " install_tengine
     case "${install_tengine}" in
     y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
         echo "Install Tengine-2.1.0"
@@ -118,16 +114,19 @@ dispaly_selection()
         echo "Install Tengine-2.1.0"
         install_tengine="y"
     esac
+
+    echo -e "\n\n"
+
+    sleep 1
 }
 
-# 添加www用户和用户组，用于web服务和php
-add_user()
-{
-    # 数据库用户(组)
+## 添加www用户和用户组，用于web服务和php
+add_user() {
+    ## 数据库用户(组)
     groupadd mysql
     useradd -s /sbin/nologin -g mysql mysql
 
-    # web/php用户(组)
+    ## web/php用户(组)
     groupadd www
     useradd -s /sbin/nologin -g www www
 
@@ -137,9 +136,8 @@ add_user()
     chmod 777 /home/www/wwwlogs
 }
 
-install_autoconf()
-{
-    echo "==========autoconf install=========="
+install_autoconf() {
+    echo -e "\n==========autoconf install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf autoconf-2.13.tar.gz
@@ -147,7 +145,7 @@ install_autoconf()
     ./configure --prefix=/usr/local/autoconf-2.13
     make && make install
 
-    # replace system autoconf
+    ## replace system autoconf
     #replace_autoconf="n"
     #if [ -s /usr/bin/autoconf ] ; then
     #    mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp
@@ -159,17 +157,15 @@ install_autoconf()
     cd ${current_dir}
 }
 
-replace_autoconf()
-{
+replace_autoconf() {
     if [ "${replace_autoconf}" = "y" ] ; then
         mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp.bak
         mv /usr/bin/autoconf.ltnmp /usr/bin/autoconf
     fi
 }
 
-install_curl()
-{
-    echo "==========curl install=========="
+install_curl() {
+    echo -e "\n==========curl install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf curl-7.42.1.tar.gz
@@ -177,7 +173,7 @@ install_curl()
     ./configure --prefix=/usr/local/curl --enable-ares
     make && make install
 
-    # replace system autoconf
+    #$ replace system autoconf
     #replace_curl="n"
     #if [ -s /usr/bin/curl ] ; then
     #    mv /usr/bin/curl /usr/bin/curl.ltnmp
@@ -189,17 +185,15 @@ install_curl()
     cd ${current_dir}
 }
 
-replace_curl()
-{
+replace_curl() {
     if [ "${replace_curl}" = "y" ] ; then
         mv /usr/bin/curl /usr/bin/curl.ltnmp.bak
         mv /usr/bin/curl.ltnmp /usr/bin/curl
     fi
 }
 
-install_freetype()
-{
-    echo "==========freetype install=========="
+install_freetype() {
+    echo -e "\n==========freetype install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf freetype-2.6.tar.gz
@@ -216,9 +210,8 @@ install_freetype()
     cd ${current_dir}
 }
 
-install_jemalloc()
-{
-    echo "==========jemalloc install=========="
+install_jemalloc() {
+    echo -e "\n==========jemalloc install==========\n"
 
     cd ${current_dir}/src/base
     tar -jxvf jemalloc-3.6.0.tar.bz2
@@ -232,9 +225,8 @@ install_jemalloc()
     cd ${current_dir}
 }
 
-install_libiconv()
-{
-    echo "==========libiconv install=========="
+install_libiconv() {
+    echo -e "\n==========libiconv install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf libiconv-1.14.tar.gz
@@ -247,9 +239,8 @@ install_libiconv()
     cd ${current_dir}
 }
 
-install_libmcrypt()
-{
-    echo "==========libmcrypt install=========="
+install_libmcrypt() {
+    echo -e "\n==========libmcrypt install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf libmcrypt-2.5.8.tar.gz
@@ -271,9 +262,8 @@ install_libmcrypt()
     cd ${current_dir}
 }
 
-install_mhash()
-{
-    echo "==========mhash install=========="
+install_mhash() {
+    echo -e "\n==========mhash install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf mhash-0.9.9.9.tar.gz
@@ -291,10 +281,9 @@ install_mhash()
     cd ${current_dir}
 }
 
-install_mcrypt()
-{
+install_mcrypt() {
     # 依赖mhash大于0.8.15组件
-    echo "==========mcrypt install=========="
+    echo -e "\n==========mcrypt install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf mcrypt-2.6.8.tar.gz
@@ -306,9 +295,8 @@ install_mcrypt()
     cd ${current_dir}
 }
 
-install_pcre()
-{
-    echo "==========pcre install=========="
+install_pcre() {
+    echo -e "\n==========pcre install==========\n"
 
     cd ${current_dir}/src/base
     tar -zxvf pcre-8.36.tar.gz
@@ -320,26 +308,24 @@ install_pcre()
     cd ${current_dir}
 }
 
-# 安装系统组件/依赖
-install_system_dependence()
-{
-    # 安装系统依赖
-    # 就是上面几个函数
-    # 需要本地磁盘空间，共享目录有些主键安装不成功
+## 安装系统组件/依赖
+install_system_dependence() {
+    ## 安装系统依赖
+    ## 就是上面几个函数
+    ## 需要本地磁盘空间，共享目录有些主键安装不成功
     install_autoconf
     install_curl
     install_freetype
     install_jemalloc
     install_libiconv
     install_libmcrypt
-    #mcrypt依赖mhash大于0.8.15组件,所以先安装mhash
+    ## mcrypt依赖mhash大于0.8.15组件,所以先安装mhash
     install_mhash
     install_mcrypt
     install_pcre
 }
 
-restart_nginx()
-{
+restart_nginx() {
     if [ -s /etc/init.d/nginx ] ; then
         nginx_status=`/etc/init.d/nginx status`
         if echo "${nginx_status}" | grep -q 'running' ; then
@@ -348,11 +334,9 @@ restart_nginx()
             /etc/init.d/nginx start
         fi
     fi
-
 }
 
-restart_php()
-{
+restart_php() {
     if [ -s /etc/init.d/php-fpm ] ; then
         php_status=`/etc/init.d/php-fpm status`
         if echo "${php_status}" | grep -q 'running' ; then
@@ -361,11 +345,9 @@ restart_php()
             /etc/init.d/php-fpm start
         fi
     fi
-
 }
 
-restart_mariadb()
-{
+restart_mariadb() {
     if [ -s /etc/init.d/mariadb ] ; then
         mariadb_status=`/etc/init.d/mariadb status`
         if echo "${mariadb_status}" | grep -q 'running' ; then
@@ -374,15 +356,4 @@ restart_mariadb()
             /etc/init.d/mariadb start
         fi
     fi
-
-}
-
-echo_yellow()
-{
-  echo $(color_text "$1" "33")
-}
-
-color_text()
-{
-  echo -e " \e[0;$2m$1\e[0m"
 }

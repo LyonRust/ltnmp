@@ -1,7 +1,6 @@
 #!/bin/bash
 
-install_ioncube_php56()
-{
+install_ioncube_php56() {
     echo "--------------------------------------------"
     echo ""
     echo "     Install ionCube For PHP5.6"

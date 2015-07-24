@@ -15,11 +15,11 @@ fi
 # 当前路径
 current_dir=$(pwd)
 
-# ltnmp版本号
-ltnmp_version='2.0'
+
 
 # 加载初始化脚本
 . scripts/bootstrap.sh
+. scripts/version.sh
 
 ## 检测系统参数
 run
@@ -53,4 +53,7 @@ echo "-------------------------------------------------------------------------"
 . scripts/end.sh
 
 # 开始安装，并保存日志
+if [ -s /root/ltnmp-install.log ] ; then
+    mv -f /root/ltnmp-install.log /root/ltnmp-install.log.ltnmp
+fi
 install 2>&1 | tee -a /root/ltnmp-install.log

@@ -1,7 +1,6 @@
 #!/bin/bash
 
-install_tengine210()
-{
+install_tengine210() {
     echo "--------------------------------------------"
     echo ""
     echo "     Install Tengine-2.1.0"
