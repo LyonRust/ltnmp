@@ -27,29 +27,16 @@ install_mariadb10() {
     sed "/skip-external-locking/i\pid-file = ${custorm_db_data_dir}/mariadb.pid" -i /etc/my.cnf
     sed "/skip-external-locking/i\log_error = ${custorm_db_data_dir}/mariadb.err" -i /etc/my.cnf
     sed '/skip-external-locking/i\basedir = /usr/local/mariadb' -i /etc/my.cnf
+    sed "/skip-external-locking/i\datadir = ${custorm_db_data_dir}" -i /etc/my.cnf
     sed '/skip-external-locking/i\user = mysql' -i /etc/my.cnf
     if [ "${install_innodb}" = "y" ]; then
         sed -i 's:#innodb:innodb:g' /etc/my.cnf
-        sed -i "s:/usr/local/mariadb/data:${custorm_db_data_dir}" /etc/my.cnf
+        sed -i "s:/usr/local/mariadb/data:${custorm_db_data_dir}:g" /etc/my.cnf
     else
         sed '/skip-external-locking/i\default-storage-engine=MyISAM\nloose-skip-innodb' -i /etc/my.cnf
     fi
 
-    #chown -R mysql:mysql /usr/local/mariadb
-
-    # if [ "${custorm_db_data_dir}" = "n" ]; then
-    #     sed '/skip-external-locking/i\datadir = /usr/local/mariadb/data' -i /etc/my.cnf
-    #     /usr/local/mariadb/scripts/mysql_install_db --defaults-file=/etc/my.cnf --basedir=/usr/local/mariadb --datadir=/usr/local/mariadb/data --user=mysql
-    #     chown -R mysql /usr/local/mariadb/data
-    # else
-    #     mkdir -p ${custorm_db_data_dir}
-    #     sed "/skip-external-locking/i\datadir = ${custorm_db_data_dir}" -i /etc/my.cnf
-    #     /usr/local/mariadb/scripts/mysql_install_db --defaults-file=/etc/my.cnf --basedir=/usr/local/mariadb --datadir=${custorm_db_data_dir} --user=mysql
-    #     chown -R mysql ${custorm_db_data_dir}
-    # fi
-
     mkdir -p ${custorm_db_data_dir}
-    sed "/skip-external-locking/i\datadir = ${custorm_db_data_dir}" -i /etc/my.cnf
     /usr/local/mariadb/scripts/mysql_install_db --defaults-file=/etc/my.cnf --basedir=/usr/local/mariadb --datadir=${custorm_db_data_dir} --user=mysql
     chown -R mysql ${custorm_db_data_dir}
 
