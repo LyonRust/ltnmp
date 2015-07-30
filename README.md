@@ -13,5 +13,7 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 #Git
 http://git.oschina.net/php360/ltnmp
 
+https://github.com/php360/ltnmp
+
 #安装使用教程
 http://www.moqifei.com/ltnmp
