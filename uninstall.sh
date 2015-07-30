@@ -43,6 +43,9 @@ echo ""
 echo "     1 : Remove ltnmp v${ltnmp_version}"
 echo "          (include Phalcon,Yaf,Swoole,if installed)"
 echo "     2 : Remove Redis-3.0.3"
+echo ""
+
+check_db
 
 remove_ltnmp() {
     echo -e "\n=====Remove ltnmp=====\n"
@@ -59,7 +62,9 @@ remove_ltnmp() {
     ## 删除文件
     echo "Remove ltnmp directory and files"
     rm -rf /usr/local/nginx
-    rm -rf /usr/local/${db_name}/!(var|data)
+    mkdir -p /home/backup/db
+    mv /usr/local/${db_name}/data /home/backup/db/
+    rm -rf /usr/local/${db_name}
     rm -rf /usr/local/php
     rm -rf /usr/local/zend
     rm -rf /usr/local/ioncube
@@ -70,6 +75,7 @@ remove_ltnmp() {
     rm -f /boot/ltnmp
     rm -rf /boot/ltnmp.log*
     echo "ltnmp is removed..."
+    echo "${db_name} data is copy into /home/backup/db/"
 }
 
 remove_redis() {
@@ -94,6 +100,7 @@ remove_redis() {
 
 action="exit"
 read -p "Enter your choice (1, 2 or exit): " action
+
 case ${action} in
     1 )
         echo "You will remove ltnmp"
