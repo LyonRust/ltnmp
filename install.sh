@@ -15,8 +15,6 @@ fi
 # 当前路径
 current_dir=$(pwd)
 
-
-
 # 加载初始化脚本
 . scripts/bootstrap.sh
 . scripts/version.sh
