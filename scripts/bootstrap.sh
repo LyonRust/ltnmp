@@ -357,3 +357,31 @@ restart_mariadb() {
         fi
     fi
 }
+
+check_db() {
+    if [[ -s /usr/local/mariadb/bin/mysql && -s /usr/local/mariadb/bin/mysqld_safe && -s /etc/my.cnf ]]; then
+        mysql_bin="/usr/local/mariadb/bin/mysql"
+        mysql_config="/usr/local/mariadb/bin/mysql_config"
+        mysql_dir="/usr/local/mariadb"
+        is_mysql="n"
+        db_name="mariadb"
+    else
+        mysql_bin="/usr/local/mysql/bin/mysql"
+        mysql_config="/usr/local/mysql/bin/mysql_config"
+        mysql_dir="/usr/local/mysql"
+        is_mysql="y"
+        db_name="mysql"
+    fi
+}
+
+remove_startup() {
+    param=$1
+    echo "Removing ${param} service at system startup..."
+    if [ "$PM" = "yum" ]; then
+        chkconfig ${param} off
+        chkconfig --del ${param}
+    elif [ "$PM" = "apt" ]; then
+        update-rc.d -f ${param} remove
+    fi
+}
+
