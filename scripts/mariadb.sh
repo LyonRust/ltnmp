@@ -44,7 +44,7 @@ install_mariadb10() {
     chgrp -R mysql /usr/local/mariadb/
     cp ./support-files/mysql.server /etc/init.d/mariadb
 
-    # sed -i 's:^basedir=$:basedir=/usr/local/mariadb:g' /etc/init.d/mariadb
+    # sed -i "s:^basedir=$:basedir=/usr/local/mariadb:g" /etc/init.d/mariadb
     # sed -i "s:^datadir=$:datadir=${custorm_db_data_dir}:g" /etc/init.d/mariadb
 
     chmod 755 /etc/init.d/mariadb
