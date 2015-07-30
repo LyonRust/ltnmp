@@ -17,6 +17,9 @@ end_system() {
 
     # 增加虚拟主机控制脚本
     ltnmp_vhost
+
+    # 最后的检查，成功或者失败的显示信息
+    ltnmp_end
 }
 
 # 安装完PHP后需要做的一些事情
@@ -42,9 +45,9 @@ add_iptables_rule() {
         /sbin/iptables -I INPUT 3 -p tcp --dport 80 -j ACCEPT
         /sbin/iptables -I INPUT 4 -p tcp -s 127.0.0.1 --dport 3306 -j ACCEPT
         /sbin/iptables -I INPUT 5 -p tcp --dport 3306 -j DROP
-        if [ "${PM}" = "yum" ]; then
+        if [ "${ANDY}" = "CentOS" ]; then
             service iptables save
-        elif [ "${PM}" = "apt" ]; then
+        elif [ "${ANDY}" = "Ubuntu" ]; then
             iptables-save > /etc/iptables.rules
             cat >/etc/network/if-post-down.d/iptables<<EOF
 #!/bin/bash
@@ -89,3 +92,56 @@ ltnmp_vhost() {
     chmod u+x /root/ltnmp
 }
 
+ltnmp_end() {
+    clear
+    isnginx=""
+    ismysql=""
+    isphp=""
+    echo "Checking..."
+    if [ -s /usr/local/nginx ] && [ -s /usr/local/nginx/sbin/nginx ]; then
+      echo "Nginx: OK"
+      isnginx="ok"
+      else
+      echo "Error: /usr/local/nginx not found!!!Nginx install failed."
+    fi
+
+    if [ -s /usr/local/php/sbin/php-fpm ] && [ -s /usr/local/php/etc/php.ini ] && [ -s /usr/local/php/bin/php ]; then
+      echo "PHP: OK"
+      echo "PHP-FPM: OK"
+      isphp="ok"
+      else
+      echo "Error: /usr/local/php not found!!!PHP install failed."
+    fi
+
+    if [ -s /usr/local/mariadb ] && [ -s /usr/local/mariadb/bin/mysql ]; then
+      echo "Mariadb: OK"
+      ismysql="ok"
+      else
+      echo "Error: /usr/local/mysql not found!!!Mariadb install failed."
+    fi
+    if [ "${isnginx}" = "ok" ] && [ "${ismysql}" = "ok" ] && [ "${isphp}" = "ok" ]; then
+        clear
+        echo "--------------------------------------------------------"
+        echo ""
+        echo "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
+        echo ""
+        echo "     Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
+        echo ""
+        echo "     By:Andy http://www.moqifei.com"
+        echo ""
+        echo "--------------------------------------------------------"
+        echo ""
+        echo "ltnmp is install OK"
+        echo "Usage: ltnmp {start|stop|reload|restart|kill|status}"
+        echo "Usage: ltnmp {nginx|mariadb|php} {start|stop|reload|restart|kill|status}"
+        echo "Usage: ltnmp vhost {add|list|del}"
+        echo ""
+        /etc/init.d/nginx status
+        /etc/init.d/php-fpm status
+        /etc/init.d/mariadb status
+    else
+        echo "Sorry,Failed to install LTNMP!"
+        echo "Please visit http://www.moqifei.com/ltnmp feedback errors and logs."
+        echo "You can download /root/ltnmp-install.log from your server,and upload ltnmp-install.log to LTNMP Forum."
+    fi
+}
