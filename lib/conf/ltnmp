@@ -26,26 +26,41 @@ arg2=$2
 ltnmp_start() {
     echo "Starting LTNMP..."
     /etc/init.d/nginx start
-    /etc/init.d/mysql start
+    if [ -s /etc/init.d/mysql ]; then
+        /etc/init.d/mysql start
+    fi
+    if [ -s /etc/init.d/mariadb ]; then
+        /etc/init.d/mariadb start
+    fi
     /etc/init.d/php-fpm start
 }
 
 ltnmp_stop() {
     echo "Stoping LTNMP..."
     /etc/init.d/nginx stop
-    /etc/init.d/mysql stop
+    if [ -s /etc/init.d/mysql ]; then
+        /etc/init.d/mysql stop
+    fi
+    if [ -s /etc/init.d/mariadb ]; then
+        /etc/init.d/mariadb stop
+    fi
     /etc/init.d/php-fpm stop
 }
 
 ltnmp_reload() {
     echo "Reload LTNMP..."
     /etc/init.d/nginx reload
-    /etc/init.d/mysql reload
+    if [ -s /etc/init.d/mysql ]; then
+        /etc/init.d/mysql reload
+    fi
+    if [ -s /etc/init.d/mariadb ]; then
+        /etc/init.d/mariadb reload
+    fi
     /etc/init.d/php-fpm reload
 }
 
 ltnmp_kill() {
-    echo "Kill nginx,php-fpm,mysql process..."
+    echo "Kill tengine/nginx,php-fpm,mariadb/mysql process..."
     killall nginx
     killall mysqld
     killall php-fpm
