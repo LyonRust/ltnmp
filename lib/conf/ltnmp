@@ -55,12 +55,18 @@ ltnmp_kill() {
 
 ltnmp_status() {
     /etc/init.d/nginx status
-    if [ -f $PHPFPMPIDFILE ]; then
-        echo "php-fpm is runing!"
-    else
-        echo "php-fpm is stop!"
+    # if [ -f $PHPFPMPIDFILE ]; then
+    #     echo "php-fpm is runing!"
+    # else
+    #     echo "php-fpm is stop!"
+    # fi
+    /etc/init.d/php-fpm status
+    if [ -s /etc/init.d/mysql ]; then
+        /etc/init.d/mysql status
     fi
-    /etc/init.d/mysql status
+    if [ -s /etc/init.d/mariadb ]; then
+        /etc/init.d/mariadb status
+    fi
 }
 
 function_vhost() {
