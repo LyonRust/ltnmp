@@ -33,9 +33,9 @@ install_redis303() {
     if [ -s /sbin/iptables ]; then
         /sbin/iptables -I INPUT -p tcp -s 127.0.0.1 --dport 6379 -j ACCEPT
         /sbin/iptables -A INPUT -p tcp --dport 6379 -j DROP
-        if [ "$PM" = "yum" ]; then
+        if [ "$ANDY" = "CentOS" ]; then
             service iptables save
-        elif [ "$PM" = "apt" ]; then
+        elif [ "$ANDY" = "Ubuntu" ]; then
             iptables-save > /etc/iptables.rules
         fi
     fi
@@ -61,6 +61,5 @@ install_redis303() {
     chkconfig redis on
 
     echo "====== Redis install completed ======"
-    echo "Redis installed successfully, enjoy it!"
-
+    echo "Redis installed successfully!"
 }
