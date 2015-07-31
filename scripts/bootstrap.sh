@@ -55,6 +55,7 @@ get_os_bit() {
 
 ## 初始化工作
 dispaly_selection() {
+    ## 初始化数据库密码
     mysql_root_pwd="root"
     echo "Set database password"
     read -p "Please enter(Default:root): " mysql_root_pwd
@@ -65,7 +66,6 @@ dispaly_selection() {
 
     ## 开启/关闭InnoDB存储引擎
     echo "==========================="
-
     install_innodb="y"
     echo "Enable/Disable InnoDB Storage Engine"
     read -p "Enter y/n(Default:y): " install_innodb
@@ -130,6 +130,7 @@ add_user() {
     groupadd www
     useradd -s /sbin/nologin -g www www
 
+    ## 创建web默认站点和日志文件夹
     mkdir -p /home/www/default
     chmod +w /home/www/default
     mkdir -p /home/www/wwwlogs
