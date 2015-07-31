@@ -626,7 +626,7 @@ function displayData(dataJSON)
 <div id="page">
     <div id="header">
         <h1>PHP探针</h1>
-        <div id="lnmplink">for <a href="http://www.moqifei.com/ltnmp" target="_blank">LTNMP一键安装包</a> <a href="http://www.moqifei.com" target="_blank">安迪后院</a></div>
+        <div id="lnmplink">for <a href="http://www.moqifei.com/ltnmp" target="_blank">LTNMP一键安装包</a> <a href="http://www.moqifei.com" target="_blank">技安后院</a></div>
     </div>
 
 <!--服务器相关参数-->
