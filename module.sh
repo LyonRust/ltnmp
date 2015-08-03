@@ -32,6 +32,7 @@ fi
 . scripts/phalcon.sh
 . scripts/yaf.sh
 . scripts/swoole.sh
+. scripts/composer.sh
 
 clear
 
@@ -52,9 +53,10 @@ echo "     1 : Install Redis-3.0.3"
 echo "     2 : Install Phalcon-v2.0.6"
 echo "     3 : Install Yaf-2.3.3"
 echo "     4 : Install Swoole-1.7.17"
+echo "     5 : Install composer-1.0-dev"
 
 action='exit'
-read -p "Enter your choice (1, 2, 3, 4 or exit): " action
+read -p "Enter your choice (1,2,3,4,5 or exit): " action
 
 case ${action} in
     1 )
@@ -68,6 +70,9 @@ case ${action} in
     ;;
     4 )
         install_swoole
+    ;;
+    5 )
+        install_composer
     ;;
     * )
         exit 1
