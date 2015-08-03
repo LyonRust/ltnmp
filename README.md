@@ -8,7 +8,7 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 
 默认组件：tengine-2.1.0，php-5.6.11，mariadb-10.0.20，phpMyAdmin-4.4.12-all-languages，ioncube Loader，Zend Guard Loader
 
-可选安装组件：redis-3.0.3，phalcon-v2.0.6，yaf-2.3.3，swoole-1.7.17-stable
+可选安装组件：redis-3.0.3，phalcon-v2.0.6，yaf-2.3.3，swoole-1.7.17-stable，composer-1.0-dev
 
 #Git
 http://git.oschina.net/php360/ltnmp
