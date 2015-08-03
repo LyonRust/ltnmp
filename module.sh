@@ -3,9 +3,10 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 ## ltnmp一键安装包
-## 组件安装脚本(redis,memcached,hhvm,eaccelerator,xcache,imageMagick)
+## 组件安装脚本(redis,memcached,hhvm,eaccelerator,xcache,imageMagick)等
+## 后续还会继续增加更多扩展组件
 ## php C扩展/框架(Yaf,phalcon,swoole)
-## by 安迪(Andy) (http://www.moqifei.com)
+## by 技安(Andy) (http://www.moqifei.com)
 
 # Check if user is root
 if [ $(id -u) != "0" ]; then

@@ -4,7 +4,7 @@ export PATH
 
 ## ltnmp一键安装包(卸载程序)
 ## 安装Tengine/Nginx,PHP,Maraidb/Mysql.
-## by 安迪(Andy) (http://www.moqifei.com)
+## by 技安(Andy) (http://www.moqifei.com)
 
 # Check if user is root
 if [ $(id -u) != "0" ]; then
