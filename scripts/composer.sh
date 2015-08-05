@@ -20,6 +20,8 @@ install_composer() {
         cp -r composer.phar /usr/local/bin/composer
     fi
 
+    chmod u+x /usr/local/bin/composer
+
     echo "composer installed successfully!"
     echo "The install-dir:/usr/local/bin/composer"
 
