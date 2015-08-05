@@ -30,6 +30,7 @@ install_mariadb10() {
     sed "/skip-external-locking/i\datadir = ${custorm_db_data_dir}" -i /etc/my.cnf
     sed '/skip-external-locking/i\user = mysql' -i /etc/my.cnf
     if [ "${install_innodb}" = "y" ]; then
+        sed '/skip-external-locking/i\innodb_file_per_table = 1' -i /etc/my.cnf
         sed -i 's:#innodb:innodb:g' /etc/my.cnf
         sed -i "s:/usr/local/mariadb/data:${custorm_db_data_dir}:g" /etc/my.cnf
     else
