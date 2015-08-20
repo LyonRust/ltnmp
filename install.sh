@@ -49,9 +49,22 @@ echo "-------------------------------------------------------------------------"
 . scripts/ionCube.sh
 . scripts/phpmyadmin.sh
 . scripts/end.sh
+. scripts/update.sh
 
-# 开始安装，并保存日志
-if [ -s /root/ltnmp-install.log ] ; then
-    mv -f /root/ltnmp-install.log /root/ltnmp-install.log.ltnmp
-fi
-install 2>&1 | tee -a /root/ltnmp-install.log
+## 调整安装选项，第一步选择更新还是全新安装，默认全新安装
+
+install="y"
+
+echo "Please choose install/update,(default:install)"
+read -p "Enter y/n,(default:y):" install
+case "${install}" in
+    [nN][oO]|[nN])
+        update
+    ;;
+    *)
+        # 开始安装，并保存日志
+        if [ -s /root/ltnmp-install.log ] ; then
+            mv -f /root/ltnmp-install.log /root/ltnmp-install.log.ltnmp
+        fi
+        install 2>&1 | tee -a /root/ltnmp-install.log
+esac
