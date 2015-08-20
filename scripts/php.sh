@@ -45,10 +45,10 @@ install_php() {
     echo "Install ZendGuardLoader for PHP 5.6.12..."
     if [ "${is_64bit}" = "y" ] ; then
         tar -zxvf zend-loader-php5.6-linux-x86_64.tar.gz
-        mv ./zend-loader-php5.6-linux-x86_64 /usr/local/zend
+        mv -f ./zend-loader-php5.6-linux-x86_64 /usr/local/zend
     else
         tar -zxvf zend-loader-php5.6-linux-i386.tar.gz
-        mv ./zend-loader-php5.6-linux-i386 /usr/local/zend
+        mv -f ./zend-loader-php5.6-linux-i386 /usr/local/zend
     fi
 
     echo "Write ZendGuardLoader into php.ini..."

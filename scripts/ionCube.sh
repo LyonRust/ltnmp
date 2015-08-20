@@ -12,10 +12,10 @@ install_ioncube_php56() {
     cd ${current_dir}/src
     if [ "${is_64bit}" = "y" ] ; then
         tar -zxvf ioncube_loaders_lin_x86-64.tar.gz
-        mv ./ioncube /usr/local/
+        mv -f ./ioncube /usr/local/
     else
         tar -zxvf ioncube_loaders_lin_x86.tar.gz
-        mv ./ioncube /usr/local/
+        mv -f ./ioncube /usr/local/
     fi
 
     cat >/tmp/ionCube.ini<<EOF
