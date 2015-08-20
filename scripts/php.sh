@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_php5612() {
+install_php() {
     echo "--------------------------------------------"
     echo ""
     echo "     Install php-5.6.12"

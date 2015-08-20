@@ -16,17 +16,17 @@ install() {
     install_mariadb10
 
     # 安装php-5.6.12
-    install_php5612
+    install_php
 
     # 安装phpmyadmin
     install_phpmyadmin
 
     if [ "${install_tengine}" == "y" ] ; then
         # 安装tengine-2.1.0
-        install_tengine210
+        install_tengine
     else
         # 安装Nginx-1.9.4
-        install_nginx194
+        install_nginx
     fi
 
     # 系统组件还原

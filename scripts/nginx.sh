@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_nginx194() {
+install_nginx() {
     echo "--------------------------------------------"
     echo ""
     echo "     Indtall Nginx-1.9.4"
