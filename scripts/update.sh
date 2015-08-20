@@ -24,6 +24,7 @@ update() {
         1 )
             /root/ltnmp stop
             install_php
+            cp -f ${current_dir}/lib/conf/index.html /home/www/default/index.html
             /root/ltnmp start
         ;;
         * )
