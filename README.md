@@ -10,7 +10,7 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 
 可选安装组件：redis-3.0.3，phalcon-v2.0.6，yaf-2.3.3，swoole-1.7.17-stable，composer-1.0-dev
 
-从2.0.4版本开始增加的可升级脚本，单个组件可直接升级至最新版
+从2.0.4版本开始，增加了可升级脚本，单个组件可直接升级至最新稳定版
 
 #Git
 http://git.oschina.net/php360/ltnmp
