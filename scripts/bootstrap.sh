@@ -99,7 +99,7 @@ dispaly_selection() {
     echo "==========================="
     install_tengine="y"
     echo "Install Tengine-2.1.0,Please input y or press Enter"
-    echo "Install Nginx-1.9.3,Please input n"
+    echo "Install Nginx-1.9.4,Please input n"
     read -p "Enter y/n(Default:y): " install_tengine
     case "${install_tengine}" in
     y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
@@ -107,7 +107,7 @@ dispaly_selection() {
         install_tengine="y"
     ;;
     n|N|No|NO|no|nO)
-        echo "Install Nginx-1.9.3"
+        echo "Install Nginx-1.9.4"
         install_tengine="n"
     ;;
     *)
@@ -115,7 +115,7 @@ dispaly_selection() {
         install_tengine="y"
     esac
 
-    echo -e "\n\n"
+    echo -e "\n"
 
     sleep 1
 }

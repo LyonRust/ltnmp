@@ -1,17 +1,17 @@
 #!/bin/bash
 
-install_php5611() {
+install_php5612() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Install php-5.6.11"
+    echo "     Install php-5.6.12"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
     cd ${current_dir}/src
-    tar -zxvf php-5.6.11.tar.gz
-    cd php-5.6.11
+    tar -zxvf php-5.6.12.tar.gz
+    cd php-5.6.12
     ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=www --with-fpm-group=www --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-iconv-dir --with-freetype-dir=/usr/local/freetype --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --with-gettext --disable-fileinfo --enable-opcache
 
     make ZEND_EXTRA_LIBS='-liconv'
@@ -42,7 +42,7 @@ install_php5611() {
     pecl config-set php_ini /usr/local/php/etc/php.ini
 
     cd ${current_dir}/src
-    echo "Install ZendGuardLoader for PHP 5.6.11..."
+    echo "Install ZendGuardLoader for PHP 5.6.12..."
     if [ "${is_64bit}" = "y" ] ; then
         tar -zxvf zend-loader-php5.6-linux-x86_64.tar.gz
         mv ./zend-loader-php5.6-linux-x86_64 /usr/local/zend
@@ -107,7 +107,7 @@ slowlog = var/log/slow.log
 EOF
 
     echo "Copy php-fpm into init.d dir..."
-    cp ${current_dir}/src/php-5.6.11/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+    cp ${current_dir}/src/php-5.6.12/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
     chmod +x /etc/init.d/php-fpm
 
     after_install_php

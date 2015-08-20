@@ -15,14 +15,19 @@ install() {
     # 安装mariadb10.0.20
     install_mariadb10
 
-    # 安装php-5.6.11
-    install_php5611
+    # 安装php-5.6.12
+    install_php5612
 
     # 安装phpmyadmin
     install_phpmyadmin
 
-    # 安装tengine-2.1.0
-    install_tengine210
+    if [ "${install_tengine}" == "y" ] ; then
+        # 安装tengine-2.1.0
+        install_tengine210
+    else
+        # 安装Nginx-1.9.4
+        install_nginx194
+    fi
 
     # 系统组件还原
     end_system
