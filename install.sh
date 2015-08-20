@@ -55,7 +55,7 @@ echo "-------------------------------------------------------------------------"
 
 install="y"
 
-echo "Please choose install/update,(default:install)"
+echo "Please choose install/update ltnmp,(default:install)"
 read -p "Enter y/n,(default:y):" install
 case "${install}" in
     [nN][oO]|[nN])

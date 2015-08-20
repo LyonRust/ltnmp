@@ -14,18 +14,20 @@ update() {
     echo ""
     echo "---------------------------------------------------------------------"
     echo ""
-    echo "     1 : update php-5.6.12"
+    echo "1 : update php-5.6.12"
+    echo ""
+
+    action='exit'
+    read -p "Enter your choice (1 or exit): " action
+
+    case ${action} in
+        1 )
+            /root/ltnmp stop
+            install_php
+            /root/ltnmp start
+        ;;
+        * )
+            exit 1
+        ;;
+    esac
 }
-
-action='exit'
-read -p "Enter your choice (1 or exit): " action
-
-case ${action} in
-    1 )
-        /root/ltnmp stop
-        install_php
-    ;;
-    * )
-        exit 1
-    ;;
-esac
