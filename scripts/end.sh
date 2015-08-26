@@ -82,8 +82,8 @@ bootstart() {
     chkconfig nginx on
     # 添加php
     chkconfig php-fpm on
-    # 添加mariadb
-    chkconfig mariadb on
+    # 添加mysql
+    chkconfig mysql on
 }
 
 ltnmp_vhost() {
@@ -113,11 +113,11 @@ ltnmp_end() {
       echo "Error: /usr/local/php not found!!!PHP install failed."
     fi
 
-    if [ -s /usr/local/mariadb ] && [ -s /usr/local/mariadb/bin/mysql ]; then
-      echo "Mariadb: OK"
+    if [ -s /usr/local/mysql ] && [ -s /usr/local/mysql/bin/mysql ]; then
+      echo "mysql: OK"
       ismysql="ok"
       else
-      echo "Error: /usr/local/mysql not found!!!Mariadb install failed."
+      echo "Error: /usr/local/mysql not found!!!mysql install failed."
     fi
     if [ "${isnginx}" = "ok" ] && [ "${ismysql}" = "ok" ] && [ "${isphp}" = "ok" ]; then
         clear
@@ -133,12 +133,12 @@ ltnmp_end() {
         echo ""
         echo "ltnmp is install OK"
         echo "Usage: ltnmp {start|stop|reload|restart|kill|status}"
-        echo "Usage: ltnmp {nginx|mariadb|php} {start|stop|reload|restart|kill|status}"
+        echo "Usage: ltnmp {nginx|mysql|php} {start|stop|reload|restart|kill|status}"
         echo "Usage: ltnmp vhost {add|list|del}"
         echo ""
         /etc/init.d/nginx status
         /etc/init.d/php-fpm status
-        /etc/init.d/mariadb status
+        /etc/init.d/mysql status
     else
         echo "Sorry,Failed to install LTNMP!"
         echo "Please visit http://www.moqifei.com/ltnmp feedback errors and logs."

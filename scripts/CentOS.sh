@@ -13,7 +13,11 @@ install() {
     add_user
 
     # 安装mariadb10.0.20
-    install_mariadb10
+    if [ "${install_mariadb}" == "y" ] ; then
+        install_mariadb
+    else
+        install_mysql
+    fi
 
     # 安装php-5.6.12
     install_php
@@ -22,10 +26,10 @@ install() {
     install_phpmyadmin
 
     if [ "${install_tengine}" == "y" ] ; then
-        # 安装tengine-2.1.0
+        # 安装tengine
         install_tengine
     else
-        # 安装Nginx-1.9.4
+        # 安装Nginx
         install_nginx
     fi
 

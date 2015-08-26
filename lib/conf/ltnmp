@@ -546,12 +546,12 @@ case "${arg1}" in
     nginx)
         /etc/init.d/nginx ${arg2}
         ;;
-    # mysql)
-    #     /etc/init.d/mysql ${arg2}
-    #     ;;
-    mariadb)
-        /etc/init.d/mariadb ${arg2}
+    mysql)
+        /etc/init.d/mysql ${arg2}
         ;;
+    # mariadb)
+    #     /etc/init.d/mariadb ${arg2}
+    #     ;;
     php)
         /etc/init.d/php-fpm ${arg2}
         ;;
@@ -575,8 +575,8 @@ case "${arg1}" in
     #     ;;
     *)
         echo "Usage: ltnmp {start|stop|reload|restart|kill|status}"
-        # echo "Usage: ltnmp {nginx|mysql|mariadb|php-fpm|pureftpd} {start|stop|reload|restart|kill|status}"
-        echo "Usage: ltnmp {nginx|mariadb|php} {start|stop|reload|restart|kill|status}"
+        # echo "Usage: ltnmp {nginx|mysql|php-fpm|pureftpd} {start|stop|reload|restart|kill|status}"
+        echo "Usage: ltnmp {nginx|mysql|php} {start|stop|reload|restart|kill|status}"
         echo "Usage: ltnmp vhost {add|list|del}"
         # echo "Usage: ltnmp database {add|list|del}"
         # echo "Usage: ltnmp ftp {add|list|del}"

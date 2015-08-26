@@ -82,40 +82,68 @@ dispaly_selection() {
         install_innodb="y"
     esac
 
-    ## 自定义数据库存储位置
+    ## 安装mariadb-10.0.20或者mysql-5.6.26
     echo "==========================="
-    custorm_db_data_dir="n"
-    echo "Custom database file path(Default:Database default path)"
-    read -p "Please enter a custom path: " custorm_db_data_dir
+    install_mariadb="y"
+    echo "Install ${ltnmp_mariadb},Please input y or press Enter"
+    echo "Install ${ltnmp_mysql},Please input n"
+    read -p "Enter y/n(Default:y): " install_mariadb
+    case "${install_mariadb}" in
+    y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
+        echo "Install ${ltnmp_mariadb}"
+        install_mariadb="y"
+    ;;
+    n|N|No|NO|no|nO)
+        echo "Install ${ltnmp_mysql}"
+        install_mariadb="n"
+    ;;
+    *)
+        echo "Install ${ltnmp_mariadb}"
+        install_mariadb="y"
+    esac
+
+    ## 自定义数据库存储位置，自定义路径为一个绝对路径
+    echo "==========================="
+    echo "Custom database file path(Default:/usr/local/mysql/data)"
+    read -p "Please enter a custom path(absolute path): " custorm_db_data_dir
     if [ "${custorm_db_data_dir}" = "" ] ; then
         custorm_db_data_dir="n"
-        echo "Database default path"
+        echo "Database default path:/usr/local/mysql/data"
     else
-        mkdir -p $custorm_db_data_dir
-        echo "Custom database file path:${custorm_db_data_dir}"
+
+        # 检测是否是绝对路径
+        if echo ${custorm_db_data_dir}|grep -qe '^/' ; then
+            mkdir -p $custorm_db_data_dir
+            echo "Custom database file path:${custorm_db_data_dir}"
+        else
+            custorm_db_data_dir="n"
+            echo "Your input is not legal."
+            echo "Use default path:/usr/local/mysql/data"
+        fi
+
     fi
 
-    ## 选择Tengine/Nginx
+    ## 选择tengine-2.1.1或者nginx-1.9.4
     echo "==========================="
     install_tengine="y"
-    echo "Install Tengine-2.1.0,Please input y or press Enter"
-    echo "Install Nginx-1.9.4,Please input n"
+    echo "Install ${ltnmp_tengine},Please input y or press Enter"
+    echo "Install ${ltnmp_nginx},Please input n"
     read -p "Enter y/n(Default:y): " install_tengine
     case "${install_tengine}" in
     y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
-        echo "Install Tengine-2.1.0"
+        echo "Install ${ltnmp_tengine}"
         install_tengine="y"
     ;;
     n|N|No|NO|no|nO)
-        echo "Install Nginx-1.9.4"
+        echo "Install ${ltnmp_nginx}"
         install_tengine="n"
     ;;
     *)
-        echo "Install Tengine-2.1.0"
+        echo "Install ${ltnmp_tengine}"
         install_tengine="y"
     esac
 
-    echo -e "\n"
+    echo ""
 
     sleep 1
 }
@@ -348,13 +376,13 @@ restart_php() {
     fi
 }
 
-restart_mariadb() {
-    if [ -s /etc/init.d/mariadb ] ; then
-        mariadb_status=`/etc/init.d/mariadb status`
-        if echo "${mariadb_status}" | grep -q 'running' ; then
-            /etc/init.d/mariadb restart
+restart_mysql() {
+    if [ -s /etc/init.d/mysql ] ; then
+        mysql_status=`/etc/init.d/mysql status`
+        if echo "${mysql_status}" | grep -q 'running' ; then
+            /etc/init.d/mysql restart
         else
-            /etc/init.d/mariadb start
+            /etc/init.d/mysql start
         fi
     fi
 }
