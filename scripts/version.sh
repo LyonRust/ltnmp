@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # ltnmp版本号
-ltnmp_version='2.0'
+ltnmp_version='2.1.0'
 ltnmp_tengine='tengine-2.1.1'
 ltnmp_nginx='nginx-1.9.4'
 ltnmp_php='php-5.6.12'
