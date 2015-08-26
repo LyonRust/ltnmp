@@ -337,6 +337,21 @@ install_pcre() {
     cd ${current_dir}
 }
 
+install_cmake() {
+    echo -e "\n==========cmake install==========\n"
+
+    if [ -s /usr/bin/cmake ] ; then
+        mv -r /usr/bin/cmake /usr/bin/cmake.ltnmp
+    fi
+
+    cd ${current_dir}/src/base
+    tar -zxvf cmake-3.3.1.tar.gz
+    cd cmake-3.3.1
+    ./bootstrap
+    make && make install
+    ln -s /usr/local/bin/cmake /usr/bin/cmake
+}
+
 ## 安装系统组件/依赖
 install_system_dependence() {
     ## 安装系统依赖
@@ -352,6 +367,7 @@ install_system_dependence() {
     install_mhash
     install_mcrypt
     install_pcre
+    install_cmake
 }
 
 restart_nginx() {
