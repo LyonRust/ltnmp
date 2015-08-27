@@ -77,7 +77,7 @@ DROP USER ''@'%';
 flush privileges;
 EOF
 
-    /usr/local/mysql/bin/mysql -u root -p$mysql_root_pwd -h localhost < /tmp/mysql_sec_script
+    /usr/local/mysql/bin/mysql -u root -p${mysql_root_pwd} -h localhost < /tmp/mysql_sec_script
 
     rm -f /tmp/mysql_sec_script
 

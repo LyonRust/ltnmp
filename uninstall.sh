@@ -3,7 +3,6 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 ## ltnmp一键安装包(卸载程序)
-## 安装Tengine/Nginx,PHP,Maraidb/Mysql.
 ## by 技安(Andy) (http://www.moqifei.com)
 
 # Check if user is root
@@ -40,12 +39,11 @@ echo ""
 echo "-------------------------------------------------------------------------"
 echo ""
 echo ""
-echo "     1 : Remove ltnmp v${ltnmp_version}"
+echo "1 : Remove ltnmp v${ltnmp_version}"
 echo "          (include Phalcon,Yaf,Swoole,if installed)"
-echo "     2 : Remove Redis-3.0.3"
+echo "2 : Remove ${ltnmp_redis}"
 echo ""
 
-check_db
 
 remove_ltnmp() {
     echo -e "\n=====Remove ltnmp=====\n"
@@ -54,28 +52,30 @@ remove_ltnmp() {
     ## 删除启动项
     # 删除Tengine/nginx
     remove_startup nginx
-    # 删除Mariadb/Mysql
-    remove_startup ${db_name}
+    # 删除Mariadb/Mysql数据库
+    remove_startup mysql
     # 删除php
     remove_startup php-fpm
 
     ## 删除文件
     echo "Remove ltnmp directory and files"
     rm -rf /usr/local/nginx
-    mkdir -p /home/backup/db
-    mv /usr/local/${db_name}/data /home/backup/db/
-    rm -rf /usr/local/${db_name}
+    time=$(date +%Y%m%d%H%M%S)
+    mkdir -p /home/backup/db/${time}
+    mv /usr/local/mysql/data /home/backup/db/${time}/
+    rm -rf /usr/local/mysql
     rm -rf /usr/local/php
     rm -rf /usr/local/zend
     rm -rf /usr/local/ioncube
     rm -f /etc/my.cnf
     rm -f /etc/init.d/nginx
-    rm -f /etc/init.d/${db_name}
+    rm -f /etc/init.d/mysql
     rm -f /etc/init.d/php-fpm
     rm -f /boot/ltnmp
+    rm -f /bin/ltnmp
     rm -rf /boot/ltnmp.log*
     echo "ltnmp is removed..."
-    echo "${db_name} data is copy into /home/backup/db/"
+    echo "mysql data is copy into /home/backup/db/${time}/"
 }
 
 remove_redis() {
@@ -109,15 +109,16 @@ case ${action} in
         echo "The following directory or files will be remove!"
         cat << EOF
 /usr/local/nginx
-${mysql_dir}
+/usr/local/mysql
 /usr/local/php
 /etc/init.d/nginx
-/etc/init.d/${db_name}
+/etc/init.d/mysql
 /etc/init.d/php-fpm
 /usr/local/zend
 /usr/local/ioncube
 /etc/my.cnf
 /root/ltnmp
+/bin/ltnmp
 EOF
         start=""
         read -p "Please enter 'ltnmp' to start: " start
