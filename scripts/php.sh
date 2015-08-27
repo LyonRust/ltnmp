@@ -3,15 +3,15 @@
 install_php() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Install php-5.6.12"
+    echo "     Install ${ltnmp_php}"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
     cd ${current_dir}/src
-    tar -zxvf php-5.6.12.tar.gz
-    cd php-5.6.12
+    tar -zxvf ${ltnmp_php}.tar.gz
+    cd ${ltnmp_php}
     ./configure --prefix=/usr/local/php --with-config-file-path=/usr/local/php/etc --enable-fpm --with-fpm-user=www --with-fpm-group=www --with-mysql=mysqlnd --with-mysqli=mysqlnd --with-pdo-mysql=mysqlnd --with-iconv-dir --with-freetype-dir=/usr/local/freetype --with-jpeg-dir --with-png-dir --with-zlib --with-libxml-dir=/usr --enable-xml --disable-rpath --enable-bcmath --enable-shmop --enable-sysvsem --enable-inline-optimization --with-curl --enable-mbregex --enable-mbstring --with-mcrypt --enable-ftp --with-gd --enable-gd-native-ttf --with-openssl --with-mhash --enable-pcntl --enable-sockets --with-xmlrpc --enable-zip --enable-soap --with-gettext --disable-fileinfo --enable-opcache
 
     make ZEND_EXTRA_LIBS='-liconv'
@@ -41,45 +41,6 @@ install_php() {
     pear config-set php_ini /usr/local/php/etc/php.ini
     pecl config-set php_ini /usr/local/php/etc/php.ini
 
-    cd ${current_dir}/src
-    echo "Install ZendGuardLoader for PHP 5.6.12..."
-    if [ "${is_64bit}" = "y" ] ; then
-        tar -zxvf zend-loader-php5.6-linux-x86_64.tar.gz
-        mv -f ./zend-loader-php5.6-linux-x86_64 /usr/local/zend
-    else
-        tar -zxvf zend-loader-php5.6-linux-i386.tar.gz
-        mv -f ./zend-loader-php5.6-linux-i386 /usr/local/zend
-    fi
-
-    echo "Write ZendGuardLoader into php.ini..."
-    cat >>/usr/local/php/etc/php.ini<<EOF
-
-;eaccelerator
-
-;ionCube
-
-[Zend ZendGuard Loader]
-zend_extension=/usr/local/zend/ZendGuardLoader.so
-zend_loader.enable=1
-zend_loader.disable_licensing=0
-zend_loader.obfuscation_level_support=3
-zend_loader.license_path=
-
-;opcache
-;[Zend Opcache]
-;zend_extension=/usr/local/zend/opcache.so
-;opcache.memory_consumption=128
-;opcache.interned_strings_buffer=8
-;opcache.max_accelerated_files=4000
-;opcache.revalidate_freq=60
-;opcache.fast_shutdown=1
-;opcache.enable_cli=1
-;opcache end
-
-;xcache
-;xcache end
-EOF
-
     echo "Create php-fpm config file..."
     cat >/usr/local/php/etc/php-fpm.conf<<EOF
 [global]
@@ -107,11 +68,9 @@ slowlog = var/log/slow.log
 EOF
 
     echo "Copy php-fpm into init.d dir..."
-    cp ${current_dir}/src/php-5.6.12/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
+    cp ${current_dir}/src/${ltnmp_php}/sapi/fpm/init.d.php-fpm /etc/init.d/php-fpm
     chmod +x /etc/init.d/php-fpm
 
     after_install_php
-
-    install_ioncube_php56
 
 }
