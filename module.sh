@@ -3,9 +3,8 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 ## ltnmp一键安装包
-## 组件安装脚本(redis,memcached,hhvm,eaccelerator,xcache,imageMagick)等
-## 后续还会继续增加更多扩展组件
-## php C扩展/框架(Yaf,phalcon,swoole)
+## 组件安装脚本
+## php C扩展/框架(Yaf,phalcon,swoole......)
 ## by 技安(Andy) (http://www.moqifei.com)
 
 # Check if user is root
@@ -34,6 +33,8 @@ fi
 . scripts/yaf.sh
 . scripts/swoole.sh
 . scripts/composer.sh
+. scripts/zendloader.sh
+. scripts/ionCube.sh
 
 clear
 
@@ -50,18 +51,20 @@ echo ""
 echo "-------------------------------------------------------------------------"
 echo ""
 echo ""
-echo "     1 : Install Redis-3.0.3"
-echo "     2 : Install Phalcon-v2.0.6"
-echo "     3 : Install Yaf-2.3.3"
-echo "     4 : Install Swoole-1.7.17"
-echo "     5 : Install composer-1.0-dev"
+echo "1 : Install ${ltnmp_redis}"
+echo "2 : Install ${ltnmp_phalcon}"
+echo "3 : Install ${ltnmp_yaf}"
+echo "4 : Install ${ltnmp_swoole}"
+echo "5 : Install composer"
+echo "6 : Install zend-loader"
+echo "7 : Install ionCube"
+echo ""
 
-action='exit'
-read -p "Enter your choice (1,2,3,4,5 or exit): " action
+read -p "Enter your choice number (or exit): " action
 
 case ${action} in
     1 )
-        install_redis303
+        install_redis
     ;;
     2 )
         install_phalcon
@@ -75,14 +78,13 @@ case ${action} in
     5 )
         install_composer
     ;;
+    6 )
+        install_zend_loader
+    ;;
+    7 )
+        install_ioncube
+    ;;
     * )
         exit 1
     ;;
 esac
-
-
-
-
-
-
-

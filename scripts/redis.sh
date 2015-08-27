@@ -1,17 +1,17 @@
 #!/bin/bash
 
-install_redis303() {
+install_redis() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Indtall Redis-3.0.3"
+    echo "     Indtall ${ltnmp_redis}"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
     cd ${current_dir}/src
-    tar -zxvf redis-3.0.3.tar.gz
-    cd redis-3.0.3
+    tar -zxvf ${ltnmp_redis}.tar.gz
+    cd ${ltnmp_redis}
 
     sed -i '/redis.so/d' /usr/local/php/etc/php.ini
     zend_ext_dir="/usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/"
@@ -33,17 +33,17 @@ install_redis303() {
     if [ -s /sbin/iptables ]; then
         /sbin/iptables -I INPUT -p tcp -s 127.0.0.1 --dport 6379 -j ACCEPT
         /sbin/iptables -A INPUT -p tcp --dport 6379 -j DROP
-        if [ "$ANDY" = "CentOS" ]; then
+        if [ "${ANDY}" = "CentOS" ]; then
             service iptables save
-        elif [ "$ANDY" = "Ubuntu" ]; then
+        elif [ "${ANDY}" = "Ubuntu" ]; then
             iptables-save > /etc/iptables.rules
         fi
     fi
 
     # 安装 php-redis扩展
     cd ${current_dir}/src
-    tar -zxvf redis-2.2.7.tgz
-    cd redis-2.2.7
+    tar -zxvf ${ltnmp_php_redis}.tgz
+    cd ${ltnmp_php_redis}
 
     /usr/local/php/bin/phpize
     ./configure --with-php-config=/usr/local/php/bin/php-config

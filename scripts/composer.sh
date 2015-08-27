@@ -3,7 +3,7 @@
 install_composer() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Indtall composer-1.0-dev"
+    echo "     Indtall composer"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""

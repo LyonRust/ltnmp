@@ -3,19 +3,19 @@
 install_phalcon() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Indtall Phalcon-v2.0.6"
+    echo "     Indtall ${ltnmp_phalcon}"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
     cd ${current_dir}/src
-    tar -zxvf cphalcon-phalcon-v2.0.6.tar.gz
+    tar -zxvf ${ltnmp_phalcon}.tar.gz
 
     if [ "${is_64bit}" = "y" ] ; then
-        cd cphalcon-phalcon-v2.0.6/build/64bits
+        cd ${ltnmp_phalcon}/build/64bits
     else
-        cd cphalcon-phalcon-v2.0.6/build/32bits
+        cd ${ltnmp_phalcon}/build/32bits
     fi
 
     sed -i '/phalcon.so/d' /usr/local/php/etc/php.ini

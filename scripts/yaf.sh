@@ -3,15 +3,15 @@
 install_yaf() {
     echo "--------------------------------------------"
     echo ""
-    echo "     Indtall Yaf-2.3.3"
+    echo "     Indtall ${ltnmp_yaf}"
     echo ""
     echo "     By:Andy http://www.moqifei.com"
     echo ""
     echo "--------------------------------------------"
 
     cd ${current_dir}/src
-    tar -zxvf yaf-2.3.3.tgz
-    cd yaf-2.3.3
+    tar -zxvf ${ltnmp_yaf}.tgz
+    cd ${ltnmp_yaf}
 
     sed -i '/yaf.so/d' /usr/local/php/etc/php.ini
     zend_ext_dir="/usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/"
