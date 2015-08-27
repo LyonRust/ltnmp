@@ -3,7 +3,7 @@ PATH=/bin:/sbin:/usr/bin:/usr/sbin:/usr/local/bin:/usr/local/sbin:~/bin
 export PATH
 
 ## ltnmp一键安装包
-## 安装Tengine/Nginx,PHP,Maraidb/Mysql.
+## 更新脚本
 ## by 技安(Andy) (http://www.moqifei.com)
 
 # Check if user is root
@@ -27,6 +27,16 @@ if [ "${DISTRO}" = "unknow" ]; then
     exit 1
 fi
 
+## 加载各个发行版，数据库，PHP，web服务器等脚本
+. scripts/${ANDY}.sh
+. scripts/mariadb.sh
+. scripts/mysql.sh
+. scripts/tengine.sh
+. scripts/nginx.sh
+. scripts/php.sh
+. scripts/phpmyadmin.sh
+. scripts/end.sh
+
 clear
 
 echo "-------------------------------------------------------------------------"
@@ -38,21 +48,25 @@ echo ""
 echo "     By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
+echo ""
+echo "1 : update ${ltnmp_php}"
+echo "2 : update ${ltnmp_tengine}"
+echo ""
 
+read -p "Enter your choice number (or input exit): " action
 
-## 加载各个发行版，数据库，PHP，web服务器等脚本
-. scripts/${ANDY}.sh
-. scripts/mariadb.sh
-. scripts/mysql.sh
-. scripts/tengine.sh
-. scripts/nginx.sh
-. scripts/php.sh
-. scripts/phpmyadmin.sh
-. scripts/end.sh
-. scripts/update.sh
-
-# 开始安装，并保存日志
-if [ -s /root/ltnmp-install.log ] ; then
-    mv -f /root/ltnmp-install.log /root/ltnmp-install.log.ltnmp
-fi
-install 2>&1 | tee -a /root/ltnmp-install.log
+case ${action} in
+    1 )
+        /root/ltnmp stop
+        install_php
+        /root/ltnmp start
+    ;;
+    2 )
+        /root/ltnmp stop
+        install_tengine
+        /root/ltnmp start
+    ;;
+    * )
+        exit 1
+    ;;
+esac
