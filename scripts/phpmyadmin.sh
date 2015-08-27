@@ -14,7 +14,7 @@ install_phpmyadmin() {
     mv ${ltnmp_phpmyadmin} /home/www/default/phpmyadmin
 
     cp ${current_dir}/lib/conf/config.inc.php /home/www/default/phpmyadmin/
-    sed -i 's/LOVEANDY/LOVE'$RANDOM'ANDY/g' /home/www/default/phpmyadmin/config.inc.php
+    sed -i 's/LOVEANDY/LOVE'${RANDOM}'ANDY/g' /home/www/default/phpmyadmin/config.inc.php
     chmod -R 755 /home/www/default/phpmyadmin/
     chown -R www:www /home/www/default/phpmyadmin/
 
