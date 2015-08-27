@@ -55,7 +55,7 @@ get_os_bit() {
 
 ## 初始化工作
 dispaly_selection() {
-    ## 初始化数据库密码
+    ## 第一步：初始化数据库密码
     mysql_root_pwd="root"
     echo "Set database password"
     read -p "Please enter(Default:root): " mysql_root_pwd
@@ -64,25 +64,7 @@ dispaly_selection() {
     fi
     echo "The root database password is: ${mysql_root_pwd}"
 
-    ## 开启/关闭InnoDB存储引擎
-    echo "==========================="
-    install_innodb="y"
-    echo "Enable/Disable InnoDB Storage Engine"
-    read -p "Enter y/n(Default:y): " install_innodb
-
-    case "${install_innodb}" in
-    [yY][eE][sS]|[yY])
-        echo "enable InnoDB Storage Engine"
-    ;;
-    [nN][oO]|[nN])
-        echo "disable InnoDB Storage Engine"
-    ;;
-    *)
-        echo "enable InnoDB Storage Engine"
-        install_innodb="y"
-    esac
-
-    ## 安装mariadb-10.0.20或者mysql-5.6.26
+    ## 第二步：安装mariadb-10.0.20或者mysql-5.6.26
     echo "==========================="
     install_mariadb="y"
     echo "Install ${ltnmp_mariadb},Please input y or press Enter"
@@ -102,7 +84,25 @@ dispaly_selection() {
         install_mariadb="y"
     esac
 
-    ## 自定义数据库存储位置，自定义路径为一个绝对路径
+    ## 第三步：开启/关闭InnoDB存储引擎
+    echo "==========================="
+    install_innodb="y"
+    echo "Enable/Disable InnoDB Storage Engine"
+    read -p "Enter y/n(Default:y): " install_innodb
+
+    case "${install_innodb}" in
+    [yY][eE][sS]|[yY])
+        echo "enable InnoDB Storage Engine"
+    ;;
+    [nN][oO]|[nN])
+        echo "disable InnoDB Storage Engine"
+    ;;
+    *)
+        echo "enable InnoDB Storage Engine"
+        install_innodb="y"
+    esac
+
+    ## 第四步：自定义数据库存储位置，自定义路径为一个绝对路径
     echo "==========================="
     echo "Custom database file path(Default:/usr/local/mysql/data)"
     read -p "Please enter a custom path(absolute path): " custorm_db_data_dir
@@ -113,7 +113,7 @@ dispaly_selection() {
 
         # 检测是否是绝对路径
         if echo ${custorm_db_data_dir}|grep -qe '^/' ; then
-            mkdir -p $custorm_db_data_dir
+            mkdir -p ${custorm_db_data_dir}
             echo "Custom database file path:${custorm_db_data_dir}"
         else
             custorm_db_data_dir="n"
@@ -123,7 +123,7 @@ dispaly_selection() {
 
     fi
 
-    ## 选择tengine-2.1.1或者nginx-1.9.4
+    ## 第五步：选择tengine-2.1.1或者nginx-1.9.4
     echo "==========================="
     install_tengine="y"
     echo "Install ${ltnmp_tengine},Please input y or press Enter"
@@ -169,9 +169,9 @@ install_autoconf() {
     echo -e "\n==========autoconf install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf autoconf-2.13.tar.gz
-    cd autoconf-2.13
-    ./configure --prefix=/usr/local/autoconf-2.13
+    tar -zxvf ${ltnmp_autoconf}.tar.gz
+    cd ${ltnmp_autoconf}
+    ./configure --prefix=/usr/local/${ltnmp_autoconf}
     make && make install
 
     ## replace system autoconf
@@ -180,7 +180,7 @@ install_autoconf() {
     #    mv /usr/bin/autoconf /usr/bin/autoconf.ltnmp
     #    replace_autoconf="y"
     #fi
-    #ln -s /usr/local/autoconf-2.13/bin/autoconf /usr/bin/autoconf
+    #ln -s /usr/local/${ltnmp_autoconf}/bin/autoconf /usr/bin/autoconf
 
     #ldconfig
     cd ${current_dir}
@@ -197,8 +197,8 @@ install_curl() {
     echo -e "\n==========curl install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf curl-7.42.1.tar.gz
-    cd curl-7.42.1
+    tar -zxvf ${ltnmp_curl}.tar.gz
+    cd ${ltnmp_curl}
     ./configure --prefix=/usr/local/curl --enable-ares
     make && make install
 
@@ -208,7 +208,7 @@ install_curl() {
     #    mv /usr/bin/curl /usr/bin/curl.ltnmp
     #    replace_curl="y"
     #fi
-    #ln -s /usr/local/curl-7.42.1/bin/curl /usr/bin/curl
+    #ln -s /usr/local/${ltnmp_curl}/bin/curl /usr/bin/curl
 
     #ldconfig
     cd ${current_dir}
@@ -225,8 +225,8 @@ install_freetype() {
     echo -e "\n==========freetype install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf freetype-2.6.tar.gz
-    cd freetype-2.6
+    tar -zxvf ${ltnmp_freetype}.tar.gz
+    cd ${ltnmp_freetype}
     ./configure --prefix=/usr/local/freetype
     make && make install
 
@@ -243,8 +243,8 @@ install_jemalloc() {
     echo -e "\n==========jemalloc install==========\n"
 
     cd ${current_dir}/src/base
-    tar -jxvf jemalloc-3.6.0.tar.bz2
-    cd jemalloc-3.6.0
+    tar -jxvf ${ltnmp_jemalloc}.tar.bz2
+    cd ${ltnmp_jemalloc}
     ./configure
     make && make install
 
@@ -258,9 +258,9 @@ install_libiconv() {
     echo -e "\n==========libiconv install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf libiconv-1.14.tar.gz
-    cd libiconv-1.14
-    patch -p0 < ${current_dir}/src/patch/libiconv-glibc-2.16.patch
+    tar -zxvf ${ltnmp_libiconv}.tar.gz
+    cd ${ltnmp_libiconv}
+    patch -p0 < ${current_dir}/lib/patch/${ltnmp_libiconv_glibc}.patch
     ./configure --enable-static
     make && make install
 
@@ -272,8 +272,8 @@ install_libmcrypt() {
     echo -e "\n==========libmcrypt install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf libmcrypt-2.5.8.tar.gz
-    cd libmcrypt-2.5.8
+    tar -zxvf ${ltnmp_libmcrypt}.tar.gz
+    cd ${ltnmp_libmcrypt}
     ./configure
     make && make install
 
@@ -295,8 +295,8 @@ install_mhash() {
     echo -e "\n==========mhash install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf mhash-0.9.9.9.tar.gz
-    cd mhash-0.9.9.9
+    tar -zxvf ${ltnmp_mhash}.tar.gz
+    cd ${ltnmp_mhash}
     ./configure
     make && make install
 
@@ -315,8 +315,8 @@ install_mcrypt() {
     echo -e "\n==========mcrypt install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf mcrypt-2.6.8.tar.gz
-    cd mcrypt-2.6.8
+    tar -zxvf ${ltnmp_mcrypt}.tar.gz
+    cd ${ltnmp_mcrypt}
     ./configure
     make && make install
 
@@ -328,8 +328,8 @@ install_pcre() {
     echo -e "\n==========pcre install==========\n"
 
     cd ${current_dir}/src/base
-    tar -zxvf pcre-8.36.tar.gz
-    cd pcre-8.36
+    tar -zxvf ${ltnmp_pcre}.tar.gz
+    cd ${ltnmp_pcre}
     ./configure
     make && make install
 
@@ -345,8 +345,8 @@ install_cmake() {
     fi
 
     cd ${current_dir}/src/base
-    tar -zxvf cmake-3.3.1.tar.gz
-    cd cmake-3.3.1
+    tar -zxvf ${ltnmp_cmake}.tar.gz
+    cd ${ltnmp_cmake}
     ./bootstrap
     make && make install
     ln -s /usr/local/bin/cmake /usr/bin/cmake
@@ -422,10 +422,10 @@ check_db() {
 remove_startup() {
     param=$1
     echo "Removing ${param} service at system startup..."
-    if [ "$PM" = "yum" ]; then
+    if [ "${PM}" = "yum" ]; then
         chkconfig ${param} off
         chkconfig --del ${param}
-    elif [ "$PM" = "apt" ]; then
+    elif [ "${PM}" = "apt" ]; then
         update-rc.d -f ${param} remove
     fi
 }
