@@ -43,10 +43,10 @@ echo "-------------------------------------------------------------------------"
 ## 加载各个发行版，数据库，PHP，web服务器等脚本
 . scripts/${ANDY}.sh
 . scripts/mariadb.sh
+. scripts/mysql.sh
 . scripts/tengine.sh
 . scripts/nginx.sh
 . scripts/php.sh
-. scripts/ionCube.sh
 . scripts/phpmyadmin.sh
 . scripts/end.sh
 . scripts/update.sh
