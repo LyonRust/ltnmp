@@ -90,6 +90,7 @@ ltnmp_vhost() {
     echo "Copy ltnmp..."
     cp ${current_dir}/lib/conf/ltnmp /root/
     chmod u+x /root/ltnmp
+    ln -s /root/ltnmp /bin/ltnmp
 }
 
 ltnmp_end() {
