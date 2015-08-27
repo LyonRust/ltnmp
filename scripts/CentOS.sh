@@ -1,6 +1,7 @@
 #!/bin/bash
 
 install() {
+    # 初始化工作
     dispaly_selection
 
     # 系统编译组件检测、安装

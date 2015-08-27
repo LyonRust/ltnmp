@@ -6,16 +6,16 @@ export PATH
 ## 安装Tengine/Nginx,PHP,Maraidb/Mysql.
 ## by 技安(Andy) (http://www.moqifei.com)
 
-# Check if user is root
+## 检测是否是root账户权限
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install ltnmp"
     exit 1
 fi
 
-# 当前路径
+## 当前路径
 current_dir=$(pwd)
 
-# 加载初始化脚本
+## 加载初始化脚本
 . scripts/bootstrap.sh
 . scripts/version.sh
 
@@ -51,7 +51,7 @@ echo "-------------------------------------------------------------------------"
 . scripts/end.sh
 . scripts/update.sh
 
-# 开始安装，并保存日志
+## 开始安装，并保存日志
 if [ -s /root/ltnmp-install.log ] ; then
     mv -f /root/ltnmp-install.log /root/ltnmp-install.log.ltnmp
 fi

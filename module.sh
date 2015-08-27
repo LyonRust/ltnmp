@@ -7,16 +7,16 @@ export PATH
 ## php C扩展/框架(Yaf,phalcon,swoole......)
 ## by 技安(Andy) (http://www.moqifei.com)
 
-# Check if user is root
+## 检测是否是root账户权限
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install ltnmp"
     exit 1
 fi
 
-# 当前路径
+## 当前路径
 current_dir=$(pwd)
 
-# 加载初始化脚本
+## 加载初始化脚本
 . scripts/bootstrap.sh
 . scripts/version.sh
 

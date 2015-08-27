@@ -5,16 +5,16 @@ export PATH
 ## ltnmp一键安装包(卸载程序)
 ## by 技安(Andy) (http://www.moqifei.com)
 
-# Check if user is root
+## 检测是否是root账户权限
 if [ $(id -u) != "0" ]; then
     echo "Error: You must be root to run this script, please use root to install ltnmp"
     exit 1
 fi
 
-# 当前路径
+## 当前路径
 current_dir=$(pwd)
 
-# 加载初始化脚本
+## 加载初始化脚本
 . scripts/bootstrap.sh
 . scripts/version.sh
 
@@ -85,11 +85,11 @@ remove_redis() {
 
     remove_startup redis
 
-    # 删除文件
+    ## 删除文件
     echo "Remove redis directory and files"
     rm -rf /usr/local/redis
 
-    # 关闭php的redis扩展
+    ## 关闭php的redis扩展
     sed -i '/extension=redis.so/d' /usr/local/php/etc/php.ini
 
     /root/ltnmp start
