@@ -1,6 +1,6 @@
 #!/bin/bash
 
-install_ioncube_php56() {
+install_ioncube() {
     echo "--------------------------------------------"
     echo ""
     echo "     Install ionCube For PHP5.6"
@@ -31,6 +31,5 @@ r /tmp/ionCube.ini
     rm -f /tmp/ionCube.ini
 
     /etc/init.d/php-fpm restart
-    /etc/init.d/php-fpm stop
 
 }
