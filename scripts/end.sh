@@ -69,16 +69,16 @@ ltnmp_startup() {
     echo "Add and Start ltnmp..."
     cp ${current_dir}/lib/conf/ltnmp /bin/ltnmp
     chmod +x /bin/ltnmp
-    echo "Start Tengine..."
+    echo "Start Tengine/Nginx..."
     /etc/init.d/nginx start
-    echo "Start mariadb..."
-    /etc/init.d/mariadb start
+    echo "Start mysql..."
+    /etc/init.d/mysql start
     echo "Start php..."
     /etc/init.d/php-fpm start
 }
 
 bootstart() {
-    # 添加Tengine
+    # 添加Tengine/Nginx
     chkconfig nginx on
     # 添加php
     chkconfig php-fpm on
