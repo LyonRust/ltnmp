@@ -49,7 +49,6 @@ echo "-------------------------------------------------------------------------"
 . scripts/php.sh
 . scripts/phpmyadmin.sh
 . scripts/end.sh
-. scripts/update.sh
 
 ## 开始安装，并保存日志
 if [ -s /root/ltnmp-install.log ] ; then
