@@ -419,6 +419,17 @@ check_db() {
     fi
 }
 
+add_startup() {
+    param=$1
+    echo "Add ${param} service at system startup..."
+    if [ "${PM}" = "yum" ]; then
+        chkconfig --add ${param}
+        chkconfig ${param} on
+    elif [ "${PM}" = "apt" ]; then
+        update-rc.d -f ${param} defaults
+    fi
+}
+
 remove_startup() {
     param=$1
     echo "Removing ${param} service at system startup..."
@@ -429,4 +440,3 @@ remove_startup() {
         update-rc.d -f ${param} remove
     fi
 }
-

@@ -58,7 +58,12 @@ install_redis() {
     /etc/init.d/php-fpm restart
     /etc/init.d/redis start
 
-    chkconfig redis on
+    if [ "${PM}" = "yum" ]; then
+        chkconfig --add redis
+        chkconfig redis on
+    elif [ "${PM}" = "apt" ]; then
+        update-rc.d -f redis defaults
+    fi
 
     echo "====== Redis install completed ======"
     echo "Redis installed successfully!"

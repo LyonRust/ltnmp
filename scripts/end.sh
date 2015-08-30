@@ -79,11 +79,11 @@ ltnmp_startup() {
 
 bootstart() {
     # 添加Tengine/Nginx
-    chkconfig nginx on
+    add_startup nginx
     # 添加php
-    chkconfig php-fpm on
+    add_startup php-fpm
     # 添加mysql
-    chkconfig mysql on
+    add_startup mysql
 }
 
 ltnmp_vhost() {
