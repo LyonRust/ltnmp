@@ -21,7 +21,7 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 
 #更新记录
 2.1.0：
-该版本默认安装：tengine-2.1.1，php-5.6.12，mariadb-10.0.20，phpMyAdmin-4.4.14-all-languages
+该版本默认安装：tengine-2.1.1，php-5.6.12，mariadb-10.0.21，phpMyAdmin-4.4.14-all-languages
 
 安装过程可选组件：nginx-1.9.4，mysql-5.6.26
 
