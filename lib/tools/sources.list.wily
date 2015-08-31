@@ -1,0 +1,10 @@
+deb http://mirrors.163.com/ubuntu/ wily main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ wily-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ wily-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ wily-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ wily-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ wily main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ wily-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ wily-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ wily-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ wily-backports main restricted universe multiverse

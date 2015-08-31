@@ -1,0 +1,10 @@
+deb http://mirrors.163.com/ubuntu/ utopic main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ utopic-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ utopic-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ utopic-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ utopic-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ utopic main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ utopic-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ utopic-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ utopic-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ utopic-backports main restricted universe multiverse

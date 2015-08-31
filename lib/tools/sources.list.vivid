@@ -1,0 +1,10 @@
+deb http://mirrors.163.com/ubuntu/ vivid main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse
+deb http://mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ vivid main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ vivid-security main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ vivid-updates main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ vivid-proposed main restricted universe multiverse
+deb-src http://mirrors.163.com/ubuntu/ vivid-backports main restricted universe multiverse
