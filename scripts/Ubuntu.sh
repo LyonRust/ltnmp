@@ -42,7 +42,7 @@ install() {
 check_system() {
     cat /etc/issue
     uname -a
-    MemTotal=`free -m | grep Mem | awk '{print  $2}'`
+    MemTotal=`free -m | grep Mem | awk '{print $2}'`
     echo -e "\n Memory is: ${MemTotal} MB "
 
     # 设置时区
@@ -80,5 +80,5 @@ check_system() {
     apt-get -fy install
     export DEBIAN_FRONTEND=noninteractive
     for packages in build-essential gcc g++ make cmake autoconf automake re2c wget cron bzip2 libzip-dev libc6-dev file rcconf flex vim bison m4 gawk less cpp binutils diffutils unzip tar bzip2 libbz2-dev libncurses5 libncurses5-dev libtool libevent-dev openssl libssl-dev zlibc libsasl2-dev libltdl3-dev libltdl-dev zlib1g zlib1g-dev libbz2-1.0 libbz2-dev libglib2.0-0 libglib2.0-dev libpng3 libjpeg62 libjpeg62-dev libjpeg-dev libpng-dev libpng12-0 libpng12-dev curl libcurl3 libcurl3-gnutls libcurl4-gnutls-dev libcurl4-openssl-dev libpq-dev libpq5 gettext libjpeg-dev libpng12-dev libxml2-dev libcap-dev ca-certificates debian-keyring debian-archive-keyring libc-client2007e-dev psmisc patch git libc-ares-dev;
-    do apt-get install -y $packages --force-yes; done
+    do apt-get install -y ${packages} --force-yes; done
 }
