@@ -73,7 +73,13 @@ remove_ltnmp() {
     rm -f /etc/init.d/php-fpm
     rm -f /boot/ltnmp
     rm -f /bin/ltnmp
-    rm -rf /boot/ltnmp.log*
+    rm -rf /boot/ltnmp-install.log*
+    rm -rf /usr/lib/mysql
+    rm -rf /usr/include/mysql
+    rm -rf /usr/bin/mysql
+    rm -rf /usr/bin/mysqldump
+    rm -rf /usr/bin/myisamchk
+    rm -rf /usr/bin/mysqld_safe
     echo "ltnmp is removed..."
     echo "mysql data is copy into /home/backup/db/${time}/"
 }
@@ -119,6 +125,13 @@ case ${action} in
 /etc/my.cnf
 /root/ltnmp
 /bin/ltnmp
+/boot/ltnmp-install.log
+/usr/lib/mysql
+/usr/include/mysql
+/usr/bin/mysql
+/usr/bin/mysqldump
+/usr/bin/myisamchk
+/usr/bin/mysqld_safe
 EOF
         start=""
         read -p "Please enter 'ltnmp' to start: " start
