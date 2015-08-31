@@ -20,6 +20,8 @@ http://www.moqifei.com/ltnmp
 ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 
 #更新记录
+2.1.1：更新swoole为最新稳定版1.7.19
+
 2.1.0：
 该版本默认安装：tengine-2.1.1，php-5.6.12，mariadb-10.0.21，phpMyAdmin-4.4.14-all-languages
 
