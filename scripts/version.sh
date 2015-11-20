@@ -3,7 +3,7 @@
 # ltnmp版本号
 ltnmp_version='2.1.0'
 ltnmp_tengine='tengine-2.1.1'
-ltnmp_nginx='nginx-1.9.4'
+ltnmp_nginx='nginx-1.9.7'
 ltnmp_php='php-5.6.12'
 ltnmp_phpmyadmin='phpMyAdmin-4.4.14-all-languages'
 ltnmp_mariadb='mariadb-10.0.21'
