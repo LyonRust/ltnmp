@@ -10,7 +10,7 @@ ltnmp_mariadb='mariadb-10.0.22'
 ltnmp_mysql='mysql-5.6.27'
 
 # 附加模块版本
-ltnmp_swoole='swoole-1.7.19'
+ltnmp_swoole='swoole-1.7.20'
 ltnmp_phalcon='phalcon-v2.0.7'
 ltnmp_redis='redis-3.0.5'
 ltnmp_php_redis='redis-2.2.7'
