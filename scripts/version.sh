@@ -6,7 +6,7 @@ ltnmp_tengine='tengine-2.1.1'
 ltnmp_nginx='nginx-1.9.7'
 ltnmp_php='php-5.6.15'
 ltnmp_phpmyadmin='phpMyAdmin-4.4.14-all-languages'
-ltnmp_mariadb='mariadb-10.0.21'
+ltnmp_mariadb='mariadb-10.0.22'
 ltnmp_mysql='mysql-5.6.26'
 
 # 附加模块版本
