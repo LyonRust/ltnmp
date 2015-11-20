@@ -1,43 +1,5 @@
 #!/bin/bash
 
-install() {
-    # 初始化工作
-    dispaly_selection
-
-    # 系统编译组件检测、安装
-    check_system
-
-    # 安装系统组件/依赖
-    install_system_dependence
-
-    # 添加用户(组)
-    add_user
-
-    # 安装mariadb10.0.20
-    if [ "${install_mariadb}" == "y" ] ; then
-        install_mariadb
-    else
-        install_mysql
-    fi
-
-    # 安装php-5.6.12
-    install_php
-
-    # 安装phpmyadmin
-    install_phpmyadmin
-
-    if [ "${install_tengine}" == "y" ] ; then
-        # 安装tengine
-        install_tengine
-    else
-        # 安装Nginx
-        install_nginx
-    fi
-
-    # 系统组件还原
-    end_system
-}
-
 # 系统编译组件检测、安装
 check_system() {
     cat /etc/issue
