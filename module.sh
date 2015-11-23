@@ -51,16 +51,16 @@ echo ""
 echo "-------------------------------------------------------------------------"
 echo ""
 echo ""
-echo "1 : Install ${ltnmp_redis}"
-echo "2 : Install ${ltnmp_phalcon}"
-echo "3 : Install ${ltnmp_yaf}"
-echo "4 : Install ${ltnmp_swoole}"
-echo "5 : Install composer"
-echo "6 : Install zend-loader"
-echo "7 : Install ionCube"
+echo "  1 : Install ${ltnmp_redis}"
+echo "  2 : Install ${ltnmp_phalcon}"
+echo "  3 : Install ${ltnmp_yaf}"
+echo "  4 : Install ${ltnmp_swoole}"
+echo "  5 : Install composer"
+echo "  6 : Install zend-loader"
+echo "  7 : Install ionCube"
 echo ""
 
-read -p "Enter your choice number (or exit): " action
+read -p ">>Enter your choose number (or exit): " action
 
 case ${action} in
     1 )
