@@ -41,19 +41,17 @@ clear
 
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
-echo ""
-echo "     Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
-echo ""
-echo "     By:Andy http://www.moqifei.com"
+echo "  ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
+echo "  Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
+echo "  By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "1 : update ${ltnmp_php}"
-echo "2 : update ${ltnmp_tengine}"
+echo "  1 : update ${ltnmp_php}"
+echo "  2 : update ${ltnmp_tengine}"
 echo ""
 
-read -p "Enter your choice number (or input exit): " action
+read -p ">>Enter your choice number (or input exit): " action
 
 case ${action} in
     1 )

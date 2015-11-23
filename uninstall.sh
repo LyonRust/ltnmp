@@ -30,18 +30,15 @@ clear
 
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
-echo ""
-echo "     Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
-echo ""
-echo "     By:Andy http://www.moqifei.com"
+echo "  ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
+echo "  Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
+echo "  By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
 echo ""
-echo ""
-echo "1 : Remove ltnmp v${ltnmp_version}"
+echo "  1 : Remove ltnmp v${ltnmp_version}"
 echo "          (include Phalcon,Yaf,Swoole,if installed)"
-echo "2 : Remove ${ltnmp_redis}"
+echo "  2 : Remove ${ltnmp_redis}"
 echo ""
 
 
@@ -62,7 +59,9 @@ remove_ltnmp() {
     rm -rf /usr/local/nginx
     time=$(date +%Y%m%d%H%M%S)
     mkdir -p /home/backup/db/${time}
-    mv /usr/local/mysql/data /home/backup/db/${time}/
+    if [ -d "/usr/local/mysql/data" ] ; then
+        mv /usr/local/mysql/data /home/backup/db/${time}/
+    fi
     rm -rf /usr/local/mysql
     rm -rf /usr/local/php
     rm -rf /usr/local/zend
