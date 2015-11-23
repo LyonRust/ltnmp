@@ -53,9 +53,131 @@ get_os_bit() {
     fi
 }
 
-## 初始化工作
-dispaly_selection() {
-    ## 第一步：初始化数据库密码
+## -----------------------------------------------------------------------------
+## 第一步，选择要安装的组件
+install() {
+    # 初始化安装组件标记
+    ltnmp_flag_webserver=""
+    ltnmp_flag_php="n"
+    ltnmp_flag_db=""
+    ltnmp_flag_phpmyadmin="n"
+
+    echo "  ltnmp v${ltnmp_version} module include ${ltnmp_tengine}, ${ltnmp_nginx}, ${ltnmp_php}, ${ltnmp_mariadb}, ${ltnmp_mysql}, ${ltnmp_phpmyadmin}"
+    echo ""
+    echo "  1: tengine+php+mariadb(Automatic compilation)"
+    echo "  2: tengine(only)     3: nginx(only)     4: php(only)"
+    echo "  5: mariadb(only)     6: mysql(only)     7: phpmyadmin(only)"
+
+    read -p ">>Enter your choose number (or exit): " action
+
+    case "${action}" in
+        1 )
+            # 初始化工作
+            dispaly_selection
+        ;;
+        2 )
+            # 安装tengine
+            ltnmp_flag_webserver="tengine"
+        ;;
+        3 )
+            # 安装nginx
+            ltnmp_flag_webserver="nginx"
+        ;;
+        4 )
+            # 安装php
+            ltnmp_flag_php="y"
+        ;;
+        5 )
+            # 安装mariadb
+            init_db
+            init_innodb
+            init_dbpath
+            ltnmp_flag_db="mariadb"
+        ;;
+        6 )
+            # 安装mysql
+            init_db
+            init_innodb
+            init_dbpath
+            ltnmp_flag_db="mysql"
+        ;;
+        7 )
+            # 安装phpmyadmin
+            ltnmp_flag_phpmyadmin="y"
+        ;;
+        * )
+            exit 1
+        ;;
+    esac
+
+    # 系统环境
+    init_system
+
+    # 安装mariadb/mysql
+    if [ "${ltnmp_flag_db}" == "mariadb" ] ; then
+        install_mariadb
+    elif [ "${ltnmp_flag_db}" == "mysql" ] ; then
+        install_mysql
+    fi
+    # 安装php
+    if [ "${ltnmp_flag_php}" == "y" ] ; then
+        install_php
+    fi
+    # 安装phpmyadmin
+    if [ "${ltnmp_flag_phpmyadmin}" == "y" ] ; then
+        install_phpmyadmin
+    fi
+    # 安装tengine/nginx
+    if [ "${ltnmp_flag_webserver}" == "tengine" ] ; then
+        install_tengine
+    elif [ "${ltnmp_flag_webserver}" == "mysql" ] ; then
+        install_nginx
+    fi
+
+    # 完成工作
+    case "${action}" in
+        1 )
+            # 系统组件还原
+            end_system
+        ;;
+        2|3 )
+            add_startup nginx
+            echo "Start Tengine/Nginx..."
+            /etc/init.d/nginx start
+        ;;
+        4 )
+            # 添加php
+            add_startup php-fpm
+            echo "Start php..."
+            /etc/init.d/php-fpm start
+        ;;
+        5|6 )
+            add_startup mysql
+            echo "Start mysql..."
+            /etc/init.d/mysql start
+        ;;
+        7 )
+            echo "phpmyadmin installed ok"
+        ;;
+        * )
+            exit 1
+        ;;
+    esac
+
+}
+
+## 组件检测，依赖，用户等
+init_system() {
+    # 系统编译组件检测、安装
+    check_system
+    # 安装系统组件/依赖
+    install_system_dependence
+    # 添加用户(组)
+    add_user
+}
+
+## 数据库配置
+init_db() {
     mysql_root_pwd="root"
     echo "Set database password"
     read -p "Please enter(Default:root): " mysql_root_pwd
@@ -63,47 +185,32 @@ dispaly_selection() {
         mysql_root_pwd="root"
     fi
     echo "The root database password is: ${mysql_root_pwd}"
+}
 
-    ## 第二步：安装mariadb-10.0.20或者mysql-5.6.26
-    echo "==========================="
-    install_mariadb="y"
-    echo "Install ${ltnmp_mariadb},Please input y or press Enter"
-    echo "Install ${ltnmp_mysql},Please input n"
-    read -p "Enter y/n(Default:y): " install_mariadb
-    case "${install_mariadb}" in
-    y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
-        echo "Install ${ltnmp_mariadb}"
-        install_mariadb="y"
-    ;;
-    n|N|No|NO|no|nO)
-        echo "Install ${ltnmp_mysql}"
-        install_mariadb="n"
-    ;;
-    *)
-        echo "Install ${ltnmp_mariadb}"
-        install_mariadb="y"
-    esac
-
-    ## 第三步：开启/关闭InnoDB存储引擎
-    echo "==========================="
-    install_innodb="y"
+## 开启/关闭InnoDB存储引擎
+init_innodb() {
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>"
     echo "Enable/Disable InnoDB Storage Engine"
     read -p "Enter y/n(Default:y): " install_innodb
 
     case "${install_innodb}" in
     [yY][eE][sS]|[yY])
         echo "enable InnoDB Storage Engine"
+        install_innodb="y"
     ;;
     [nN][oO]|[nN])
         echo "disable InnoDB Storage Engine"
+        install_innodb="n"
     ;;
     *)
         echo "enable InnoDB Storage Engine"
         install_innodb="y"
     esac
+}
 
-    ## 第四步：自定义数据库存储位置，自定义路径为一个绝对路径
-    echo "==========================="
+## 自定义数据库存储位置，自定义路径为一个绝对路径
+init_dbpath() {
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>"
     echo "Custom database file path(Default:/usr/local/mysql/data)"
     read -p "Please enter a custom path(absolute path): " custorm_db_data_dir
     if [ "${custorm_db_data_dir}" = "" ] ; then
@@ -122,25 +229,59 @@ dispaly_selection() {
         fi
 
     fi
+}
 
-    ## 第五步：选择tengine-2.1.1或者nginx-1.9.4
-    echo "==========================="
-    install_tengine="y"
+## 初始化工作
+dispaly_selection() {
+    # 安装组件标记调整
+    ltnmp_flag_php="y"
+    ltnmp_flag_phpmyadmin="y"
+
+    ## 第一步：初始化数据库
+    init_db
+
+    ## 第二步：安装mariadb或者mysql
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>"
+    echo "Install ${ltnmp_mariadb},Please input y or press Enter"
+    echo "Install ${ltnmp_mysql},Please input n"
+    read -p "Enter y/n(Default:y): " ltnmp_flag_db
+    case "${ltnmp_flag_db}" in
+    y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
+        echo "Install ${ltnmp_mariadb}"
+        ltnmp_flag_db="mariadb"
+    ;;
+    n|N|No|NO|no|nO)
+        echo "Install ${ltnmp_mysql}"
+        ltnmp_flag_db="mysql"
+    ;;
+    *)
+        echo "Install ${ltnmp_mariadb}"
+        ltnmp_flag_db="mariadb"
+    esac
+
+    ## 第三步：开启/关闭InnoDB存储引擎
+    init_innodb
+
+    ## 第四步：自定义数据库存储位置，自定义路径为一个绝对路径
+    init_dbpath
+
+    ## 第五步：选择tengine或者nginx
+    echo ">>>>>>>>>>>>>>>>>>>>>>>>>>>"
     echo "Install ${ltnmp_tengine},Please input y or press Enter"
     echo "Install ${ltnmp_nginx},Please input n"
-    read -p "Enter y/n(Default:y): " install_tengine
-    case "${install_tengine}" in
+    read -p "Enter y/n(Default:y): " ltnmp_flag_webserver
+    case "${ltnmp_flag_webserver}" in
     y|Y|Yes|YES|yes|yES|yEs|YeS|yeS)
         echo "Install ${ltnmp_tengine}"
-        install_tengine="y"
+        ltnmp_flag_webserver="tengine"
     ;;
     n|N|No|NO|no|nO)
         echo "Install ${ltnmp_nginx}"
-        install_tengine="n"
+        ltnmp_flag_webserver="nginx"
     ;;
     *)
         echo "Install ${ltnmp_tengine}"
-        install_tengine="y"
+        ltnmp_flag_webserver="tengine"
     esac
 
     echo ""
