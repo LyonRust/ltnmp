@@ -31,11 +31,9 @@ clear
 
 echo "-------------------------------------------------------------------------"
 echo ""
-echo "     ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
-echo ""
-echo "     Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
-echo ""
-echo "     By:Andy http://www.moqifei.com"
+echo "  ltnmp v${ltnmp_version} for ${DISTRO} Linux Server"
+echo "  Automatic compilation(Tengine/nginx)+php+(Mariadb/Mysql)"
+echo "  By:Andy http://www.moqifei.com"
 echo ""
 echo "-------------------------------------------------------------------------"
 
