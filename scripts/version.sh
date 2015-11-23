@@ -15,6 +15,7 @@ ltnmp_phalcon='phalcon-v2.0.8'
 ltnmp_redis='redis-3.0.5'
 ltnmp_php_redis='redis-2.2.7'
 ltnmp_yaf='yaf-2.3.5'
+ltnmp_openlitespeed="openlitespeed-1.4.13"
 
 # 系统组件
 ltnmp_autoconf='autoconf-2.13'
