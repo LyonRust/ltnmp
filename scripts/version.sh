@@ -11,7 +11,7 @@ ltnmp_mysql='mysql-5.6.27'
 
 # 附加模块版本
 ltnmp_swoole='swoole-1.7.20'
-ltnmp_phalcon='phalcon-v2.0.8'
+ltnmp_phalcon='phalcon-v2.0.9'
 ltnmp_redis='redis-3.0.5'
 ltnmp_php_redis='redis-2.2.7'
 ltnmp_yaf='yaf-2.3.5'
