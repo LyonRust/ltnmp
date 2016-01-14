@@ -14,7 +14,7 @@ install_yaf() {
     cd ${ltnmp_yaf}
 
     sed -i '/yaf.so/d' /usr/local/php/etc/php.ini
-    zend_ext_dir="/usr/local/php/lib/php/extensions/no-debug-non-zts-20131226/"
+    zend_ext_dir=${ltnmp_php_extension}
     if [ -s "${zend_ext_dir}yaf.so" ]; then
         rm -f "${zend_ext_dir}yaf.so"
     fi

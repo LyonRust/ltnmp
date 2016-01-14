@@ -30,3 +30,6 @@ ltnmp_mhash='mhash-0.9.9.9'
 ltnmp_mcrypt='mcrypt-2.6.8'
 ltnmp_pcre='pcre-8.36'
 ltnmp_cmake='cmake-3.3.1'
+
+# PHP扩展
+ltnmp_php_extension='/usr/local/php/lib/php/extensions/no-debug-non-zts-20151012/'
