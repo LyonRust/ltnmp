@@ -19,7 +19,7 @@ ltnmp一键安装包是一个用Linux Shell编写的可以为CentOS/RadHat、Deb
 #安装使用教程
 链接：[http://www.moqifei.com/ltnmp](http://www.moqifei.com/ltnmp)
 
-ltnmp一键安装包By：李扬(Andy) php360#qq.com(把#换成@)
+ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 
 #注意
 > 内存低于1G的服务器在没有swap交换分区
