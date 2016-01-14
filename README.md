@@ -6,16 +6,15 @@ ltnmp一键安装包是一个用Linux Shell编写的可以为CentOS/RadHat、Deb
 
 最新版本各个组件已经独立开来，可以单独的安装。
 
-默认安装组件：tengine，php，mariadb，phpMyAdmin
-
 安装过程可选组件：nginx，mysql
 
 安装完成后可选安装组件：redis，phalcon，yaf，swoole，composer，ioncube Loader，Zend Guard Loader
 
 
 #Git
-    http://git.oschina.net/php360/ltnmp
-    https://github.com/php360/ltnmp
+> [http://git.oschina.net/php360/ltnmp](http://git.oschina.net/php360/ltnmp)
+>
+> [https://github.com/php360/ltnmp](https://github.com/php360/ltnmp)
 
 #安装使用教程
 链接：[http://www.moqifei.com/ltnmp](http://www.moqifei.com/ltnmp)
@@ -29,7 +28,7 @@ ltnmp一键安装包By：李扬(Andy) php360#qq.com(把#换成@)
 >
 > 需要增加swap交换分区才可以正常安装
 >
-> 增加swap的方法详见：**[http://www.moqifei.com/archives/1916](http://www.moqifei.com/archives/1916)**
+> 增加swap的方法详见：[http://www.moqifei.com/archives/1916](http://www.moqifei.com/archives/1916)
 
 #更新记录
 ###3.0更新组件：
