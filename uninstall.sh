@@ -61,6 +61,7 @@ remove_ltnmp() {
     mkdir -p /home/backup/db/${time}
     if [ -d "/usr/local/mysql/data" ] ; then
         mv /usr/local/mysql/data /home/backup/db/${time}/
+        echo "mysql data is copy into /home/backup/db/${time}/"
     fi
     rm -rf /usr/local/mysql
     rm -rf /usr/local/php
@@ -80,7 +81,6 @@ remove_ltnmp() {
     rm -rf /usr/bin/myisamchk
     rm -rf /usr/bin/mysqld_safe
     echo "ltnmp is removed..."
-    echo "mysql data is copy into /home/backup/db/${time}/"
 }
 
 remove_redis() {
