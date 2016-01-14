@@ -1,18 +1,18 @@
 #!/bin/bash
 
 # ltnmp版本号
-ltnmp_version='2.2.0'
-ltnmp_tengine='tengine-2.1.1'
-ltnmp_nginx='nginx-1.9.7'
-ltnmp_php='php-5.6.15'
-ltnmp_phpmyadmin='phpMyAdmin-4.5.1-all-languages'
+ltnmp_version='3.0'
+ltnmp_tengine='tengine-2.1.2'
+ltnmp_nginx='nginx-1.9.9'
+ltnmp_php='php-7.0.2'
+ltnmp_phpmyadmin='phpMyAdmin-4.5.3.1-all-languages'
 ltnmp_mariadb='mariadb-10.0.22'
-ltnmp_mysql='mysql-5.6.27'
+ltnmp_mysql='mysql-5.7.10'
 
 # 附加模块版本
-ltnmp_swoole='swoole-1.7.20'
+ltnmp_swoole='swoole-src-swoole-1.7.22-stable'
 ltnmp_phalcon='phalcon-v2.0.9'
-ltnmp_redis='redis-3.0.5'
+ltnmp_redis='redis-3.0.6'
 ltnmp_php_redis='redis-2.2.7'
 ltnmp_yaf='yaf-2.3.5'
 ltnmp_openlitespeed="openlitespeed-1.4.13"
