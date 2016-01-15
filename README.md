@@ -12,7 +12,7 @@ ltnmp一键安装包是一个用Linux Shell编写的可以为CentOS/RadHat、Deb
 
 
 #Git
-> [http://git.oschina.net/php360/ltnmp](http://git.oschina.net/php360/ltnmp)
+> [https://git.oschina.net/php360/ltnmp](https://git.oschina.net/php360/ltnmp)
 >
 > [https://github.com/php360/ltnmp](https://github.com/php360/ltnmp)
 
@@ -52,7 +52,8 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
     2.1.0：
     该版本默认安装：tengine-2.1.1，php-5.6.12，mariadb-10.0.21，phpMyAdmin-4.4.14-all-languages
     安装过程可选组件：nginx-1.9.4，mysql-5.6.26
-    安装完成后可选安装组件：redis-3.0.3，phalcon-v2.0.7，yaf-2.3.3，swoole-1.7.18-stable，composer-1.0-dev，ioncube Loader，Zend Guard Loader
+    安装完成后可选安装组件：redis-3.0.3，phalcon-v2.0.7，yaf-2.3.3，
+    swoole-1.7.18-stable，composer-1.0-dev，ioncube Loader，Zend Guard Loader
     2.0.4：
     更新composer到最新版，添加完成后添加可执行权限
     增加数据库innodb存储引擎默认采用独立表存储数据
