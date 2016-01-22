@@ -1,6 +1,6 @@
 #ltnmp一键安装包
 
-![ltnmp logo](http://www.moqifei.com/wp-content/uploads/2015/07/ltnmp.gif)
+![ltnmp logo](http://static.oschina.net/uploads/space/2016/0120/115109_yi4W_1412792.gif)
 
 ltnmp一键安装包是一个用Linux Shell编写的可以为CentOS/RadHat、Debian/Ubuntu VPS(VDS)或独立主机安装ltnmp(Linux、Tengine/Nginx、PHP、MariaDB/Mysql、phpMyAdmin)生产环境的Shell程序。ltnmp一键安装包是基于主要增加了淘宝服务器Tengine和MariaDB。
 
