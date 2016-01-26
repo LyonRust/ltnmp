@@ -497,7 +497,7 @@ install_cmake() {
 install_system_dependence() {
     ## 安装系统依赖
     ## 就是上面几个函数
-    ## 需要本地磁盘空间，共享目录有些主键安装不成功
+    ## 需要本地磁盘空间，共享目录有些组件安装不成功
     install_autoconf
     install_curl
     install_freetype
