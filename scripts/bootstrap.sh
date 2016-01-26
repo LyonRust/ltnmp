@@ -471,7 +471,7 @@ install_pcre() {
     cd ${current_dir}/src/base
     tar -zxvf ${ltnmp_pcre}.tar.gz
     cd ${ltnmp_pcre}
-    ./configure
+    ./configure --enable-utf8
     make && make install
 
     ldconfig
