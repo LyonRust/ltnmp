@@ -1891,6 +1891,16 @@ else
 
         echo $s;
 
+    } elseif(function_exists("mysqli_get_server_info")) {
+
+        $s = @mysqli_get_server_info();
+
+        $s = $s ? '&nbsp; mysql_server 版本：'.$s : '';
+
+	    $c = '&nbsp; mysql_client 版本：'.@mysqli_get_client_info();
+
+        echo $s;
+
     }
 
     ?>

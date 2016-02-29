@@ -31,6 +31,9 @@ ltnmp一键安装包By：技安(Andy) php360#qq.com(把#换成@)
 > 增加swap的方法详见：[http://www.moqifei.com/archives/1916](http://www.moqifei.com/archives/1916)
 
 #更新记录
+###3.1更新组件：
+* 更新redis不支持php7的非官方版
+
 ###3.0更新组件：
 * tengine-2.1.2
 * nginx-1.9.9
