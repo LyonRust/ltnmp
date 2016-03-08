@@ -42,7 +42,7 @@ install_redis() {
 
     # 安装 php-redis扩展
     cd ${current_dir}/src
-    tar -zxvf ${ltnmp_php_redis}.tgz
+    tar -zxvf ${ltnmp_php_redis}.tar.gz
     cd ${ltnmp_php_redis}
 
     /usr/local/php/bin/phpize
