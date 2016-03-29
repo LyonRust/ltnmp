@@ -20,7 +20,7 @@ install_swoole() {
     fi
 
     /usr/local/php/bin/phpize
-    ./configure --with-php-config=/usr/local/php/bin/php-config
+    ./configure --with-php-config=/usr/local/php/bin/php-config --enable-jemalloc
     make && make install
 
     sed -i '/; Windows Extensions/i\extension=swoole.so' /usr/local/php/etc/php.ini
