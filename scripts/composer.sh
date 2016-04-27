@@ -11,18 +11,18 @@ install_composer() {
 
     cd ${current_dir}/src
     ## 检测当前目录是否存在composer.phar文件，不存在则从服务器上下载
-    ## 安装到全局/usr/bin/composer
+    ## 安装到全局/usr/local/bin/composer
     if [ -s composer.phar ]; then
-        cp -r composer.phar /usr/bin/composer
+        cp -r composer.phar /usr/local/bin/composer
     else
         echo "Get the latest Composer version ..."
         curl -sS https://getcomposer.org/installer | php
-        cp -r composer.phar /usr/bin/composer
+        cp -r composer.phar /usr/local/bin/composer
     fi
 
-    chmod a+x /usr/bin/composer
+    chmod a+x /usr/local/bin/composer
 
     echo "composer installed successfully!"
-    echo "The install-dir:/usr/bin/composer"
+    echo "The install-dir:/usr/local/bin/composer"
 
 }
