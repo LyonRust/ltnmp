@@ -1,0 +1,3 @@
+[submodule "letsencrypt"]
+	path = letsencrypt
+	url = https://github.com/letsencrypt/letsencrypt.git
